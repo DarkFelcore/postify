@@ -2,13 +2,15 @@ using Microsoft.EntityFrameworkCore;
 
 using Postify.Api;
 using Postify.Application;
+using Postify.Infrastructure;
 using Postify.Infrastructure.Persistance;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
         .AddPresentation()
-        .AddApplication();
+        .AddApplication()
+        .AddInfrastructure(builder.Configuration);
 }
 
 var app = builder.Build();
@@ -16,7 +18,6 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseExceptionHandler("/error");
     app.UseCors("CorsPolicy");
-    app.UseStaticFiles();
     app.UseForwardedHeaders();
     app.UseAuthentication();
     app.UseAuthorization();
