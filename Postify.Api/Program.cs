@@ -28,9 +28,9 @@ var app = builder.Build();
         var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
         try
         {
-            var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            await applicationDbContext.Database.MigrateAsync();
-            // Seeding can be done here
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await context.Database.MigrateAsync();
+            await ApplicationDbContextSeed.SeedAsync(context, loggerFactory);
         }
         catch (Exception ex)
         {

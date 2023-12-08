@@ -8,23 +8,32 @@ namespace Postify.Domain.Entities
         public string LastName { get; private set; } = string.Empty;
         public string Email { get; private set; } = string.Empty;
         public string PasswordHash { get; private set; } = string.Empty;
-        public byte[]? ProfilePicture { get; private set; }
+        public byte[]? PictureUrl { get; private set; }
 
-        // Relations
-        public List<Post> Posts { get; set; } = null!;
-        public List<Friend> Friends { get; set; } = null!;
+        // Relationships
+        public List<Comment>? Comments { get; private set; } = null!;
+        public List<Post>? Posts { get; private set; } = null!;
+        public List<CommentLike>? CommentLikes { get; private set; } = null!;
+        public List<PostLike>? PostLikes { get; private set; } = null!;
+        public List<Follower>? Friendships { get; private set; } = null!;
 
-        public User() {}
+        public User()
+        {
 
-        public User(Guid id, string firstName, string lastName, string email, string passwordHash, byte[]? profilePicture, List<Post> posts, List<Friend> friends) : base(id)
+        }
+
+        public User(Guid id, string firstName, string lastName, string email, string passwordHash, byte[]? pictureUrl, List<Comment>? comments, List<Post>? posts, List<CommentLike>? commentLikes, List<PostLike>? postLikes, List<Follower>? friendships) : base(id)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             PasswordHash = passwordHash;
-            ProfilePicture = profilePicture;
+            PictureUrl = pictureUrl;
+            Comments = comments;
             Posts = posts;
-            Friends = friends;
+            CommentLikes = commentLikes;
+            PostLikes = postLikes;
+            Friendships = friendships;
         }
     }
 }
