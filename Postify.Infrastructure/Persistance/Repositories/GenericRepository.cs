@@ -20,7 +20,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
             return item;
         }
 
-        public async Task<List<T>> AllAsync()
+        public async virtual Task<List<T>> AllAsync()
         {
             return await DbSet.ToListAsync();
         }

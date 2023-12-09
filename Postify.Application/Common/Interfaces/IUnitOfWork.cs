@@ -5,5 +5,8 @@ namespace Postify.Application.Common.Interfaces
         Task CompleteAsync();
         
         // Repositories
+        IUserRepository UserRepository { get; }
+        IPostRepository PostRepository { get; }
+        
     }
 }

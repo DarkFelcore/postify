@@ -172,9 +172,9 @@ namespace Postify.Infrastructure.Persistance
                 c_u4.Add(comment9);
                 c_u4.Add(comment8);
 
-                var post1 = new Post(postId1, "Post description 1", "link-to-post-1", null, userId1, c_p1, pl_p1);
-                var post2 = new Post(postId2, "Post description 2", "link-to-post-2", null, userId1, c_p2, pl_p2);
-                var post3 = new Post(postId3, "Post description 3", "link-to-post-3", null, userId2, c_p3, pl_p3);
+                var post1 = new Post(postId1, "Post description 1", $"https://localhost:4200/posts/{postId1}", ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/PostImages/post-1.png"), userId1, c_p1, pl_p1);
+                var post2 = new Post(postId2, "Post description 2", $"https://localhost:4200/posts/{postId2}", ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/PostImages/post-2.png"), userId1, c_p2, pl_p2);
+                var post3 = new Post(postId3, "Post description 3", $"https://localhost:4200/posts/{postId3}", ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/PostImages/post-3.png"), userId2, c_p3, pl_p3);
 
                 p_u1.Add(post1);
                 p_u1.Add(post2);
@@ -200,10 +200,10 @@ namespace Postify.Infrastructure.Persistance
                 f_u4.Add(friendship6);
                 f_u4.Add(friendship7);
 
-                var user1 = new User(userId1, "Anthony", "Deville", "adev08@outlook.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), null, c_u1, p_u1, cl_u1, pl_u1, f_u1);
-                var user2 = new User(userId2, "John", "Doe", "john@doe.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), null, c_u2, p_u2, cl_u2, pl_u2, f_u2);
-                var user3 = new User(userId3, "Massimo", "Dutty", "massimo.dutty@gmail.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), null, c_u3, null, cl_u3, pl_u3, null);
-                var user4 = new User(userId4, "Elon", "Musk", "elon.musk@tesla.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), null, c_u4, null, null, pl_u4, f_u4);
+                var user1 = new User(userId1, "Anthony", "Deville", "adev08@outlook.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/anthony.png"), c_u1, p_u1, cl_u1, pl_u1, f_u1);
+                var user2 = new User(userId2, "John", "Doe", "john@doe.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/john.png"), c_u2, p_u2, cl_u2, pl_u2, f_u2);
+                var user3 = new User(userId3, "Massimo", "Dutty", "massimo.dutty@gmail.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/massimo.png"), c_u3, null, cl_u3, pl_u3, null);
+                var user4 = new User(userId4, "Elon", "Musk", "elon.musk@tesla.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/elon.png"), c_u4, null, null, pl_u4, f_u4);
 
                 users.Add(user1);
                 users.Add(user2);
@@ -294,6 +294,11 @@ namespace Postify.Infrastructure.Persistance
                 var logger = loggerFactory.CreateLogger<ApplicationDbContext>();
                 logger.LogInformation(ex.Message);
             }
+        }
+
+        private static byte[] ConvertToByteArray(string filePath)
+        {
+            return File.ReadAllBytes(filePath);
         }
     }
 }
