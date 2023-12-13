@@ -20,5 +20,14 @@ namespace Postify.Infrastructure.Persistance.Repositories
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
         }
+
+        public async Task<List<Post>> AllByUserIdAsync(Guid userId)
+        {
+            return await _context.Posts
+                .Include(x => x.User)
+                .Where(x => x.UserId == userId)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
+        }
     }
 }

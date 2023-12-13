@@ -27,7 +27,7 @@ namespace Postify.Api.Controllers
             var result = await _mediator.Send(query);
 
             // Map individual posts to postResponses
-            var mappedPosts = result.Value.Select(x => _mapper.Map<PostResponse>(x)).ToList();
+            var mappedPosts = result.Value.Select(x => _mapper.Map<PostOverviewResponse>(x)).ToList();
 
             return result.Match(
                 result => Ok(mappedPosts),

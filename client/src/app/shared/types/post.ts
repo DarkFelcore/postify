@@ -1,4 +1,4 @@
-export interface IPost {
+export interface IPostOverview {
     description: string;
     image: string;
     createdAt: string;

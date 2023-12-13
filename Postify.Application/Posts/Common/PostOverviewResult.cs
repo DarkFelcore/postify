@@ -2,7 +2,7 @@ using Postify.Domain.Entities;
 
 namespace Postify.Application.Posts.Common
 {
-    public record PostResult(
+    public record PostOverviewResult(
         string Description,
         string Image,
         DateTimeOffset CreatedAt,

@@ -2,6 +2,8 @@ using Mapster;
 
 using Postify.Application.Posts.Common;
 using Postify.Contracts.Posts;
+using Postify.Contracts.Profile;
+using Postify.Domain.Entities;
 
 namespace Postify.Api.Common.Mappings
 {
@@ -9,9 +11,13 @@ namespace Postify.Api.Common.Mappings
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<PostResult, PostResponse>()
+            config.NewConfig<PostOverviewResult, PostOverviewResponse>()
                 .Map(dest => dest, src => src);
-            
+
+            config.NewConfig<Post, ProfilePostResponse>()
+                .Map(dest => dest.Image, src => src.Image != null ? Convert.ToBase64String(src.Image!) : "")
+                .Map(dest => dest, src => src);
+
         }
     }
 }

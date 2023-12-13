@@ -9,7 +9,7 @@ namespace Postify.Api.Common.Mappings
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<User, UserPostResponse>()
+            config.NewConfig<User, UserPostOverviewResponse>()
                 .Map(dest => dest.PictureUrl, src => src.PictureUrl != null ? Convert.ToBase64String(src.PictureUrl) : "")
                 .Map(dest => dest, src => src);
         }

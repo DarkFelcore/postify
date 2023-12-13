@@ -1,7 +1,10 @@
+using System.Security.Cryptography.X509Certificates;
+
 using Microsoft.EntityFrameworkCore;
 
 using Postify.Application.Common.Interfaces;
 using Postify.Domain.Entities;
+using Postify.Domain.Entities.Enums;
 
 namespace Postify.Infrastructure.Persistance.Repositories
 {
@@ -33,6 +36,20 @@ namespace Postify.Infrastructure.Persistance.Repositories
         public async Task<User?> GetUserByUsernameAsync(string username)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower());
+        }
+
+        public async Task<List<Follower>> GetUserFollowersAsync(Guid userId)
+        {
+            return await _context.Friendships
+                .Where(x => x.FollowerId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<List<Follower>> GetUserFollowingsAsync(Guid userId)
+        {
+            return await _context.Friendships
+                .Where(x => x.FollowedId == userId)
+                .ToListAsync();
         }
     }
 }

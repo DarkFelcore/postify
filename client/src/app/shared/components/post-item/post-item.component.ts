@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IPost } from '../../types/post';
+import { IPostOverview } from '../../types/post';
 import { StoryBubbleItemComponent } from '../story-bubble-item/story-bubble-item.component';
 import moment from 'moment';
 
@@ -11,7 +11,7 @@ import moment from 'moment';
   styleUrl: './post-item.component.scss'
 })
 export class PostItemComponent implements OnInit {
-  @Input() post!: IPost;
+  @Input() post!: IPostOverview;
 
   timeStamp!: string;
   description!: string;

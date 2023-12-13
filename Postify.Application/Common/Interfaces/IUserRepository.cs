@@ -7,5 +7,7 @@ namespace Postify.Application.Common.Interfaces
         Task<List<User>> GetPostLikeUsers(List<PostLike> postLikes);
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> GetUserByUsernameAsync(string username);
+        Task<List<Follower>> GetUserFollowersAsync(Guid userId);
+        Task<List<Follower>> GetUserFollowingsAsync(Guid userId);
     }
 }

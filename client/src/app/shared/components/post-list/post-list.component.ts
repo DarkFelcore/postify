@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { IPost } from '../../types/post';
+import { IPostOverview } from '../../types/post';
 import { PostService } from '../../services/post.service';
 import { map } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,7 +16,7 @@ import { PostItemComponent } from '../post-item/post-item.component';
 export class PostListComponent implements OnInit {
 
   // signals
-  posts = signal<IPost[]>([]);
+  posts = signal<IPostOverview[]>([]);
 
   // services
   postService: PostService = inject(PostService);
@@ -27,7 +27,7 @@ export class PostListComponent implements OnInit {
 
   loadPosts(): void {
     this.postService.getAllPostsAsync().subscribe({
-      next: (posts: IPost[]) => this.posts.set(posts),
+      next: (posts: IPostOverview[]) => this.posts.set(posts),
       error: (err: HttpErrorResponse) => console.log(err)
     })
   }

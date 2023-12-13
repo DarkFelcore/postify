@@ -2,12 +2,12 @@ using Postify.Contracts.Users;
 
 namespace Postify.Contracts.Posts
 {
-    public record PostResponse(
+    public record PostOverviewResponse(
         string Description,
         string Image,
         DateTimeOffset CreatedAt,
         int CommentsCount,
-        List<UserPostResponse> PostLikes,
-        UserPostResponse Poster
+        List<UserPostOverviewResponse> PostLikes,
+        UserPostOverviewResponse Poster
     );
 }
