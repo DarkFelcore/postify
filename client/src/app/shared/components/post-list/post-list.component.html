@@ -1,0 +1,12 @@
+<div class="posts-container d-flex flex-column align-items-center gap-4 mt-5">
+    @for (post of posts(); track $index) {
+        <div class="post-item-container">
+            @defer {
+                <app-post-item [post]="post"></app-post-item>
+            }
+        </div>
+    }
+    @empty {
+        <h1>Loading posts</h1>
+    }
+</div>

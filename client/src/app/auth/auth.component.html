@@ -1,0 +1,9 @@
+<div class="wrapper d-flex justify-content-center align-items-center gap-3">
+    <app-phone-preview-slideshow></app-phone-preview-slideshow>
+    @if (isSignInForm) {
+        <app-login-form (toggleFormEmitter)="toggleForm()"></app-login-form>
+    }
+    @else {
+        <app-register-form (toggleFormEmitter)="toggleForm()"></app-register-form>
+    }
+</div>

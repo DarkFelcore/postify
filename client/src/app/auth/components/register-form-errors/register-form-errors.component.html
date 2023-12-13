@@ -1,0 +1,59 @@
+<div class="d-flex flex-column">
+    <!-- First Name -->
+    <!-- Required -->
+    @if (registerForm.get('firstName')?.errors && registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched) {
+        <span class="text-danger">First name is required</span>
+    }
+    <!-- Min Length -->
+    @if (registerForm.get('firstName')?.errors && registerForm.get('firstName')?.hasError('minlength') && registerForm.get('firstName')?.touched) {
+        <span class="text-danger">First name should have at least 2 characters.</span>
+    }
+
+    <!-- Last Name -->
+    <!-- Required -->
+    @if (registerForm.get('lastName')?.errors && registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched) {
+        <span class="text-danger">Last name is required</span>
+    }
+    <!-- Min Length -->
+    @if (registerForm.get('lastName')?.errors && registerForm.get('lastName')?.hasError('minlength') && registerForm.get('lastName')?.touched) {
+        <span class="text-danger">Last name should have at least 2 characters.</span>
+    }
+
+    <!-- User Name -->
+    <!-- Required -->
+    @if (registerForm.get('userName')?.errors && registerForm.get('userName')?.hasError('required') && registerForm.get('userName')?.touched) {
+        <span class="text-danger">Username is required</span>
+    }
+    <!-- Min Length -->
+    @if (registerForm.get('userName')?.errors && registerForm.get('userName')?.hasError('minlength') && registerForm.get('userName')?.touched) {
+        <span class="text-danger">Username should have at least 5 characters.</span>
+    }
+
+    <!-- Email -->
+    <!-- Required -->
+    @if (registerForm.get('email')?.errors && registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+        <span class="text-danger">Email is required</span>
+    }
+    <!-- Pattern -->
+    @if (registerForm.get('email')?.errors && registerForm.get('email')?.hasError('pattern') && registerForm.get('email')?.touched) {
+        <span class="text-danger">Email is not in the correct format.</span>
+    }
+
+    <!-- Password -->
+    <!-- Required -->
+    @if (registerForm.get('password')?.errors && registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
+        <span class="text-danger">Password is required</span>
+    }
+    <!-- Pattern -->
+    @if (registerForm.get('password')?.errors && registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched) {
+        <p class="text-danger">Password must match following criteria:</p>
+        <ul class="text-danger">
+            <li>Minimum length: 8</li>
+            <li>Maximum length: 16</li>
+            <li>Minimum one uppercase letter</li>
+            <li>Minimum one owercase letter</li>
+            <li>Minimum one number</li>
+            <li>Minimum one special character(!?*)</li>
+        </ul>
+    }
+</div>

@@ -200,10 +200,10 @@ namespace Postify.Infrastructure.Persistance
                 f_u4.Add(friendship6);
                 f_u4.Add(friendship7);
 
-                var user1 = new User(userId1, "Anthony", "Deville", "adev08@outlook.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/anthony.png"), c_u1, p_u1, cl_u1, pl_u1, f_u1);
-                var user2 = new User(userId2, "John", "Doe", "john@doe.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/john.png"), c_u2, p_u2, cl_u2, pl_u2, f_u2);
-                var user3 = new User(userId3, "Massimo", "Dutty", "massimo.dutty@gmail.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/massimo.png"), c_u3, null, cl_u3, pl_u3, null);
-                var user4 = new User(userId4, "Elon", "Musk", "elon.musk@tesla.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/elon.png"), c_u4, null, null, pl_u4, f_u4);
+                var user1 = new User(userId1, "Anthony", "Deville", "lightfelcore", "adev08@outlook.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/anthony.png"), c_u1, p_u1, cl_u1, pl_u1, f_u1);
+                var user2 = new User(userId2, "John", "Doe", "john_doe", "john@doe.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/john.png"), c_u2, p_u2, cl_u2, pl_u2, f_u2);
+                var user3 = new User(userId3, "Massimo", "Dutty", "md14", "massimo.dutty@gmail.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/massimo.png"), c_u3, null, cl_u3, pl_u3, null);
+                var user4 = new User(userId4, "Elon", "Musk", "muskelon_tesla", "elon.musk@tesla.com", BCrypt.Net.BCrypt.HashPassword("Password123!!"), ConvertToByteArray("../Postify.Infrastructure/Persistance/Data/SeedData/ProfileImages/elon.png"), c_u4, null, null, pl_u4, f_u4);
 
                 users.Add(user1);
                 users.Add(user2);

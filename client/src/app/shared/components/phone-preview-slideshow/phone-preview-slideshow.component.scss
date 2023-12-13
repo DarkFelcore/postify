@@ -1,0 +1,35 @@
+.animation-container {
+    width: 16.8rem;
+    position: relative;
+
+    
+    .phone-1-wrapper {
+      position: absolute;
+      top: -6.5%;
+      left: -40%;
+      z-index: 2;
+      
+      .phone-1 {
+        width: 21rem;
+      }
+    }
+    
+    .phone-2-wrapper {
+      position: relative;
+      z-index: 3;
+      
+      .template-phone {
+        width: 17rem;
+        height: 33.65rem;
+      }
+
+      .phone {
+        transition: all .3s ease-in-out;
+        position: absolute;
+        left: 4.3%;
+        top: 2%;
+        width: 15.2rem;
+        height: 32.25rem;
+      }
+    }
+  }

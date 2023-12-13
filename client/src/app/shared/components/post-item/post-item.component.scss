@@ -1,0 +1,56 @@
+.post-item {
+  max-width: 30rem;
+  padding-bottom: 1.5rem;
+
+  .header {
+    .section-2 {
+      transition: all 0.1s ease-in-out;
+      color: rbg(245, 245, 245);
+      &:active {
+        color: #acacac;
+      }
+    }
+  }
+
+  .img-container {
+    border: 1px solid #262626;
+    img {
+      max-width: 30rem;
+    }
+  }
+
+  .action-container {
+    i {
+      font-size: 1.3rem;
+    }
+    .comment {
+      transform: rotateY(3.142rad);
+    }
+  }
+
+  .post-likes-container {
+    .description {
+      word-wrap: break-word;
+    }
+    .show-more-label {
+      color: #acacac;
+    }
+  }
+
+  .total-comments-container {
+    .total-comments-label, .add-comment-input {
+      color: #6b6b6b;
+    }
+    .add-comment-input {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

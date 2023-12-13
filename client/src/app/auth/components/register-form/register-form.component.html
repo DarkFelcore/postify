@@ -1,0 +1,40 @@
+<div class="form-container d-flex flex-column gap-2">
+    <div class="section-1 py-3 px-5 d-flex flex-column align-items-center">
+        <h1 class="p-4 text-center">Postify</h1>
+        <p class="text-center mb-1">Register to view friends' photos and videos.</p>
+        <app-login-facebook></app-login-facebook>
+        <app-horisontal-divider-text-centered></app-horisontal-divider-text-centered>
+        <form (ngSubmit)="onSubmit()" class="d-flex flex-column gap-2 my-3" [formGroup]="registerForm">
+            
+            <div class="from-group">
+                <input formControlName="email" class="form-control" placeholder="E-mail address" type="text">
+            </div>
+            <div class="from-group">
+                <input formControlName="firstName" class="form-control" placeholder="First name" type="text">
+            </div>
+            <div class="from-group">
+                <input formControlName="lastName" class="form-control" placeholder="Last name" type="text">
+            </div>
+            <div class="from-group">
+                <input formControlName="userName" class="form-control" placeholder="User name" type="text">
+            </div>
+            <div class="from-group">
+                <input formControlName="password" class="form-control" placeholder="Password" type="password">
+            </div>
+
+            <app-register-form-errors [registerForm]="registerForm"></app-register-form-errors>
+            
+            <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary sign-up-btn mt-1">Sign up</button>
+        </form>
+    </div>
+    <div class="section-2 py-3 px-5 d-flex justify-content-center">
+        <p class="text-center">Do you have an account? <span (click)="toggleForm()" class="sign-in-label cursor-pointer">Sign in then.</span></p>
+    </div>
+    <div class="section-3 p-2 d-flex flex-column align-items-center gap-2">
+        <p>Download the app</p>
+        <div class="d-flex align-items-center gap-3">
+            <img class="google-play" src="/assets/images/google-play.png" alt="google-play">
+            <img class="microsoft" src="/assets/images/microsoft.png" alt="google-play">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+.form-container {
+    width: 21.8rem;
+  
+    .section-1 {
+      > * {
+        width: 100%;
+      }
+  
+      h1 {
+        font-size: 3rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: darkgray;
+        font-weight: bold;
+      }
+  
+      form {
+        input {
+          border-radius: 0;
+        }
+  
+        .sign-up-btn {
+          font-weight: 500;
+          padding: 0.2rem 0;
+          border: none;
+          background-color: rgb(76, 181, 249);
+        }
+  
+        .forgot-password-label,
+        .additional-info-label {
+          font-size: 0.8rem;
+          color: rgb(165, 165, 165);
+        }
+  
+        .forgot-password-label {
+          transition: all 0.1s ease-in-out;
+          &:active {
+            color: rgb(190, 190, 190);
+          }
+        }
+      }
+    }
+  
+    .section-2 {
+      .sign-in-label {
+        font-weight: 600;
+        color: rgb(76, 181, 249);
+      }
+    }
+  
+    .section-3 {
+      .google-play {
+        width: 8.6rem;
+      }
+      .microsoft {
+        width: 7rem;
+      }
+    }
+  
+    .section-1,
+    .section-2,
+    .section-3 {
+      width: 100%;
+    }
+    .section-1,
+    .section-2 {
+      border: 1px solid rgb(222, 226, 230);
+    }
+  }
+  

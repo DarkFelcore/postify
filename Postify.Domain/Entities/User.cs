@@ -6,6 +6,7 @@ namespace Postify.Domain.Entities
     {
         public string FirstName { get; private set; } = string.Empty;
         public string LastName { get; private set; } = string.Empty;
+        public string UserName { get; private set; } = string.Empty;
         public string Email { get; private set; } = string.Empty;
         public string PasswordHash { get; private set; } = string.Empty;
         public byte[]? PictureUrl { get; private set; }
@@ -22,10 +23,11 @@ namespace Postify.Domain.Entities
 
         }
 
-        public User(Guid id, string firstName, string lastName, string email, string passwordHash, byte[]? pictureUrl, List<Comment>? comments, List<Post>? posts, List<CommentLike>? commentLikes, List<PostLike>? postLikes, List<Follower>? friendships) : base(id)
+        public User(Guid id, string firstName, string lastName, string userName, string email, string passwordHash, byte[]? pictureUrl = null, List<Comment>? comments = null, List<Post>? posts = null, List<CommentLike>? commentLikes = null, List<PostLike>? postLikes = null, List<Follower>? friendships = null) : base(id)
         {
             FirstName = firstName;
             LastName = lastName;
+            UserName= userName;
             Email = email;
             PasswordHash = passwordHash;
             PictureUrl = pictureUrl;

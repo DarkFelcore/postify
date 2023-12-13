@@ -1,0 +1,13 @@
+.bubble-container {
+  position: relative;
+  background: linear-gradient(#000, #000) padding-box,
+    linear-gradient(to top right, rgb(236, 200, 40), rgb(255, 0, 170))
+      border-box;
+  border-radius: 50em;
+  border: 3px solid transparent;
+
+  img {
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}

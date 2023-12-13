@@ -1,0 +1,14 @@
+nav {
+    border-bottom: 1px solid #262626;
+    .nav-item {
+        font-size: 1.1rem;
+        .nav-link {
+            padding: 0 15px 10px 0;
+            color: rgb(115,115,115);
+
+            &.active {
+                color: #ffffff;
+            }
+        }
+    }
+}

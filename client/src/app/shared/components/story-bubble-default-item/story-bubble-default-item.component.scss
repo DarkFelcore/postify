@@ -1,0 +1,29 @@
+.bubble-container {
+  position: relative;
+  width: 4.2rem;
+  height: 4.2rem;
+  background: linear-gradient(#000, #000) padding-box,
+    linear-gradient(to top right, rgb(236, 200, 40), rgb(255, 0, 170))
+      border-box;
+  border-radius: 50em;
+  border: 3px solid transparent;
+
+  img {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+  }
+
+  .plus-icon-container {
+    position: absolute;
+    border-radius: 50%;
+    top: 65%;
+    left: 73%;
+    background-color: #0095F6;
+    width: 1.2rem;
+    height: 1.2rem;
+    i {
+        font-size: 0.7rem;
+    }
+  }
+}

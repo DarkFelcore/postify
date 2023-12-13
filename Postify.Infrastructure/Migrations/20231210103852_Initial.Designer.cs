@@ -12,7 +12,7 @@ using Postify.Infrastructure.Persistance;
 namespace Postify.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231208155802_Initial")]
+    [Migration("20231210103852_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -159,6 +159,10 @@ namespace Postify.Infrastructure.Migrations
 
                     b.Property<byte[]>("PictureUrl")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

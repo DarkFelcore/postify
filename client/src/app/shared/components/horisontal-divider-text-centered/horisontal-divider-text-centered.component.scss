@@ -1,0 +1,13 @@
+.custom-border {
+    position: relative;
+    width: 100%;
+    
+    &:after {
+        content: "";
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        border-bottom: 1px solid rgb(222, 226, 230);
+    }
+}

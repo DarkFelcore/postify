@@ -1,0 +1,8 @@
+<nav class="nav mb-3">
+    <li class="nav-item cursor-pointer">
+        <a class="nav-link" [class.active]="navItemClickedValue === '1'" (click)="onNavItemClickedValue($event)" value="1" >For you</a>
+    </li>
+    <li class="nav-item cursor-pointer">
+        <a class="nav-link" [class.active]="navItemClickedValue === '2'" (click)="onNavItemClickedValue($event)" value="2" >Following</a>
+    </li>
+</nav>

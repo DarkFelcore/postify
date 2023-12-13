@@ -24,5 +24,15 @@ namespace Postify.Infrastructure.Persistance.Repositories
 
             return users;
         }
+
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower());
+        }
     }
 }

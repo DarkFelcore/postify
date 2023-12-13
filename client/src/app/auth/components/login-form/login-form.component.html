@@ -1,0 +1,33 @@
+<div class="form-container d-flex flex-column gap-2">
+    <div class="section-1 py-3 px-5 d-flex flex-column align-items-center">
+        <h1 class="p-4 text-center">Postify</h1>
+        <form (ngSubmit)="onSubmit()" class="d-flex flex-column gap-2" [formGroup]="loginForm">
+            
+            <div class="from-group">
+                <input formControlName="emailOrUsername" class="form-control" placeholder="Username or e-mail adddress" type="text">
+            </div>
+            <div class="from-group">
+                <input formControlName="password" class="form-control" placeholder="Password" type="password">
+            </div>
+            <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary sign-in-btn mt-1">Sign in</button>
+
+            <app-horisontal-divider-text-centered></app-horisontal-divider-text-centered>
+            
+            <app-login-facebook></app-login-facebook>
+            
+            <span class="text-center cursor-pointer forgot-password-label my-1">Forgot password?</span>
+            
+            <span class="text-center my-1 additional-info-label">You can also report content you believe is illegal in your country without signing up.</span>
+        </form>
+    </div>
+    <div class="section-2 py-3 px-5 d-flex justify-content-center">
+        <p class="text-center">No account? <span (click)="toggleForm()" class="sign-up-label cursor-pointer">Register then.</span></p>
+    </div>
+    <div class="section-3 p-2 d-flex flex-column align-items-center gap-2">
+        <p>Download the app</p>
+        <div class="d-flex align-items-center gap-3">
+            <img class="google-play" src="/assets/images/google-play.png" alt="google-play">
+            <img class="microsoft" src="/assets/images/microsoft.png" alt="google-play">
+        </div>
+    </div>
+</div>

@@ -5,5 +5,7 @@ namespace Postify.Application.Common.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         Task<List<User>> GetPostLikeUsers(List<PostLike> postLikes);
+        Task<User?> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByUsernameAsync(string username);
     }
 }

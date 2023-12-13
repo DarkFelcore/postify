@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ngx-spinner/animations/cube-transition.css";
+@import "../node_modules/ngx-toastr/toastr.css";
+
+body,
+html {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+h1 {
+  user-select: none;
+  font-family: "Oleo Script" !important;
+}
