@@ -1,5 +1,5 @@
-<div class="col-md-12 d-flex gap-3 align-items-center overflow-hidden">
+<div *ngIf="(currentUser$ | async) as user" class="col-md-12 d-flex gap-3 align-items-center overflow-hidden">
     <!-- Implement this with current logged in user information -->
-    <app-story-bubble-default-item></app-story-bubble-default-item>
+    <app-story-bubble-default-item [loggedInUserPictureUrl]="user.pictureUrl"></app-story-bubble-default-item>
     
 </div>

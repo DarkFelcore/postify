@@ -38,17 +38,23 @@ namespace Postify.Infrastructure.Persistance.Repositories
             return await _context.Users.FirstOrDefaultAsync(x => x.UserName.ToLower() == username.ToLower());
         }
 
+        public async Task<Follower?> GetFriendShipStatusAsync(Guid userId, Guid profileId)
+        {
+            return await _context.Friendships
+                .FirstOrDefaultAsync(x => x.FollowedId == profileId && x.FollowerId == userId);
+        }
+
         public async Task<List<Follower>> GetUserFollowersAsync(Guid userId)
         {
             return await _context.Friendships
-                .Where(x => x.FollowerId == userId)
+                .Where(x => x.FollowedId == userId && x.Status == FriendshipStatus.Accepted)
                 .ToListAsync();
         }
 
         public async Task<List<Follower>> GetUserFollowingsAsync(Guid userId)
         {
             return await _context.Friendships
-                .Where(x => x.FollowedId == userId)
+                .Where(x => x.FollowerId == userId && x.Status == FriendshipStatus.Accepted)
                 .ToListAsync();
         }
     }

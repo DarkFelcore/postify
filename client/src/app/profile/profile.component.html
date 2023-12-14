@@ -1,1 +1,39 @@
-<p>profile works!</p>
+@if (profile()) {
+    <div class="container-fluid">
+        <div class="row d-flex">
+            <div class="col-md-2 navbar-container p-5">
+                <app-navbar></app-navbar>
+            </div>
+            <div class="main-container col-md-10">
+                <div class="user-container d-flex col-md-12">
+                    <div class="profile-img-container text-end col-md-3">
+                        <img class="profile-img" src="data:image/png;base64,{{profile()?.pictureUrl}}" alt="profile-picture">
+                    </div>
+                    <div class="user-info-container col-md-9">
+                        <div class="section-1 d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center gap-4">
+                                <p class="username">{{profile()?.userName}}</p>
+                                @if(isOwnProfile())
+                                {
+                                    <button class="btn profile-btn">Edit profile</button>
+                                    <i class="fa-solid fa-gear gear cursor-pointer"></i>
+                                }
+                            </div>
+                        </div>
+                        <div class="section-2 d-flex align-items-center gap-5 mt-4">
+                            <p class="cursor-pointer"><strong>{{profile()?.posts?.length}} </strong>posts</p>
+                            <p class="cursor-pointer"><strong>{{profile()?.followersCount}} </strong>followers</p>
+                            <p class="cursor-pointer"><strong>{{profile()?.followingCount}} </strong>following</p>
+                        </div>
+                        <div class="section-3 mt-3">
+                            <p>{{profile()?.firstName}} {{profile()?.lastName}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-container mt-5">
+                    <app-profile-tab-list [profile]="profile()" [currentUser]="currentUser"></app-profile-tab-list>
+                </div>
+            </div>
+        </div>
+    </div>
+}

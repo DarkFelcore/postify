@@ -1,0 +1,21 @@
+.tab-list-container {
+    border-top: 1px solid #262626;
+
+    div {
+        .list-item {
+            font-size: 0.9rem !important;
+            padding: 1rem !important;
+        }
+
+        div {
+            border: 1px solid transparent;
+            &.active {
+                border-top: 1px solid white;
+            }
+        }
+    }
+
+    .posts-container {
+
+    }
+}

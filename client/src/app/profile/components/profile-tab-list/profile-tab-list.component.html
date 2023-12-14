@@ -1,0 +1,25 @@
+<div class="tab-list-container">
+    <div class="d-flex justify-content-center align-items-center gap-5">
+        <!-- Posts -->
+        <div (click)="onTabClicked(1)" class="d-flex align-items-center" [class.active]="selectedTabValue === 1">
+            <i class="fa-solid fa-table-cells-large"></i>
+            <p class="cursor-pointer list-item">POSTS</p>
+        </div>
+        <!-- Saved -->
+        @if (isOwnProfile()) {
+            <div (click)="onTabClicked(2)" class="d-flex align-items-center" [class.active]="selectedTabValue === 2">
+                <i class="fa-regular fa-bookmark"></i>
+                <p class="cursor-pointer list-item">SAVED</p>
+            </div>
+        }
+    </div>
+    <div class="posts-container d-flex flex-wrap">
+        <!-- Rendring posts -->
+        @if (selectedTabValue === 1) {
+
+        }
+
+        <!-- Rendering saved posts -->
+        @if (selectedTabValue === 2) {}
+    </div>
+</div>

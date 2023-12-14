@@ -37,7 +37,7 @@ namespace Postify.Application.Auth.Register
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(command.Password);
 
             // Create local user object
-            var newUser = new User(
+            var user = new User(
                 id: Guid.NewGuid(),
                 firstName: command.FirstName,
                 lastName: command.LastName,
@@ -47,13 +47,17 @@ namespace Postify.Application.Auth.Register
             );
 
             // Persist the new user
-            await _unitOfWork.UserRepository.AddAsync(newUser);
+            await _unitOfWork.UserRepository.AddAsync(user);
             await _unitOfWork.CompleteAsync();
 
             // Generate token
-            var token = _jwtTokenGenerator.GenerateToken(newUser);
+            var token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(newUser.Id, token);
+            return new AuthenticationResult(
+                user.Id,
+                user.PictureUrl != null ? Convert.ToBase64String(user.PictureUrl) : "",
+                token
+            );
         }
     }
 }

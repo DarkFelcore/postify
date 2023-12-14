@@ -6,7 +6,7 @@ namespace Postify.Domain.Entities
     {
         public string Description { get; private set; } = string.Empty;
         public string Link { get; private set; } = string.Empty;
-        public byte[]? Image { get; private set; }
+        public byte[] Image { get; private set; } = [];
         public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.UtcNow;
 
         // Relationships
@@ -20,7 +20,7 @@ namespace Postify.Domain.Entities
         {
         }
 
-        public Post(Guid id, string description, string link, byte[]? image, Guid userId, List<Comment>? comments, List<PostLike>? postLikes) : base(id)
+        public Post(Guid id, string description, string link, byte[] image, Guid userId, List<Comment>? comments, List<PostLike>? postLikes) : base(id)
         {
             Description = description;
             Link = link;

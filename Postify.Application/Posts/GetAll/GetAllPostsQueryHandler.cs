@@ -27,7 +27,7 @@ namespace Postify.Application.Posts.GetAll
                 var postLikeUsers = await _unitOfWork.UserRepository.GetPostLikeUsers(post.PostLikes!);
                 postResults.Add(new PostOverviewResult(
                     post.Description,
-                    post.Image != null ? Convert.ToBase64String(post.Image) : "",
+                    Convert.ToBase64String(post.Image),
                     post.CreatedAt,
                     post.Comments!.Count,
                     postLikeUsers,

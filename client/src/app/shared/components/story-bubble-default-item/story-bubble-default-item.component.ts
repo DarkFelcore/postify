@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-story-bubble-default-item',
@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './story-bubble-default-item.component.scss'
 })
 export class StoryBubbleDefaultItemComponent {
+  
+  @Input() loggedInUserPictureUrl!: string;
 
 }

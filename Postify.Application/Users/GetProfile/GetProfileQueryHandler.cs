@@ -27,7 +27,7 @@ namespace Postify.Application.Users.GetProfile
             var followersCount = (await _unitOfWork.UserRepository.GetUserFollowersAsync(query.UserId)).Count;
             var followingsCount = (await _unitOfWork.UserRepository.GetUserFollowingsAsync(query.UserId)).Count;
 
-            return new ProfileResult(user.FirstName, user.LastName, user.UserName, followersCount, followingsCount, posts);
+            return new ProfileResult(user.Id, user.FirstName, user.LastName, user.UserName, Convert.ToBase64String(user.PictureUrl!), followersCount, followingsCount, posts);
         }
     }
 }

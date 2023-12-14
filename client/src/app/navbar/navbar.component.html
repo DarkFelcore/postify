@@ -1,8 +1,8 @@
 <div *ngIf="(currentUser$ | async) as user" class="col-md-12 navbar-content">
-    <h2 class="title p-2 cursor-pointer">Postify</h2>
+    <h2 routerLink="/" class="title p-2 cursor-pointer">Postify</h2>
     <div class="mt-4 navbar-sub-content">
         <ul class="p-0 nav-items list-unstyled">
-            <li class="nav-item cursor-pointer p-2">
+            <li routerLink="/" class="nav-item cursor-pointer p-2">
                 <i class="fa-solid fa-home me-3"></i>
                 Start page
             </li>
@@ -15,7 +15,7 @@
                 Chat messages
             </li>
             <li routerLink="/profile/{{user.id}}" class="nav-item cursor-pointer mt-3 p-2">
-                <img class="img-fluid" src="/assets/images/anthony.png" alt="profile-img">
+                <img class="img-fluid" src="data:image/png;base64,{{user.pictureUrl}}" alt="profile-img">
                 Profile
             </li>
         </ul>

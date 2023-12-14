@@ -27,7 +27,6 @@ namespace Postify.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetCurrentUserAsync()
         {
             var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
@@ -41,8 +40,9 @@ namespace Postify.Api.Controllers
             );
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody]LoginRequest request)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginRequest request)
         {
             var query = _mapper.Map<LoginQuery>(request);
             var result = await _mediator.Send(query);
@@ -53,8 +53,9 @@ namespace Postify.Api.Controllers
             );
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody]RegisterRequest request)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
         {
             var command = _mapper.Map<RegisterCommand>(request);
             var result = await _mediator.Send(command);

@@ -8,6 +8,7 @@ export interface IPostOverview {
 }
 
 export interface IUserPoster {
+    id: string;
     pictureUrl: string;
     userName: string;
 }

@@ -26,7 +26,11 @@ namespace Postify.Application.Auth.CurrentUser
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 
-            return new AuthenticationResult(user.Id, token);
+            return new AuthenticationResult(
+                user.Id,
+                user.PictureUrl != null ? Convert.ToBase64String(user.PictureUrl) : "",
+                token
+            );
         }
     }
 }

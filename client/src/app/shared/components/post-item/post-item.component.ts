@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IPostOverview } from '../../types/post';
 import { StoryBubbleItemComponent } from '../story-bubble-item/story-bubble-item.component';
 import moment from 'moment';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-post-item',
   standalone: true,
-  imports: [StoryBubbleItemComponent],
+  imports: [StoryBubbleItemComponent, RouterModule],
   templateUrl: './post-item.component.html',
   styleUrl: './post-item.component.scss'
 })
