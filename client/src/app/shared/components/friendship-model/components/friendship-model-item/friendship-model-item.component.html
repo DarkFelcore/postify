@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="section-1 d-flex align-items-center">
+        <app-story-bubble-item width="40" pictureUrl="data:image/png;base64,{{friendShip.pictureUrl}}"></app-story-bubble-item>
+        <div class="name-container">
+            <p>{{friendShip.userName}}</p>
+            <p>{{friendShip.firstName}} {{friendShip.lastName}}</p>
+        </div>
+    </div>
+    <div class="section-2">
+        @if (userId !== friendShip.id) {
+            <app-friendship-status-button [isProfilePage]="false" [status]="friendShip.friendShipStatus"></app-friendship-status-button>
+        }
+    </div>
+</div>

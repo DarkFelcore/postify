@@ -1,0 +1,15 @@
+.profile-post-item-container {
+  img {
+    width: 20.7rem;
+    height: 20.7rem;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 1887px) {
+  img {
+    width: 19rem;
+    height: 19rem;
+    object-fit: cover;
+  }
+}

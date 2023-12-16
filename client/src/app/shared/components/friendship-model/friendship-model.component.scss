@@ -1,0 +1,12 @@
+.modal-dialog {
+    max-width: 24rem;
+    padding-bottom: 16rem;
+
+    .modal-header {
+        border-bottom: 1px solid rgb(54, 54, 54);
+        p {
+            width: 100%;
+            font-weight: bold;
+        }
+    }
+}

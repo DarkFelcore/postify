@@ -2,11 +2,12 @@ using MapsterMapper;
 
 using MediatR;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using Postify.Application.Users.FriendShips;
-using Postify.Application.Users.GetProfile;
+using Postify.Api.Extensions;
+using Postify.Application.Users.FriendShips.ByUserId;
+using Postify.Application.Users.FriendShips.Status;
+using Postify.Application.Users.Profile;
 using Postify.Contracts.Posts;
 using Postify.Contracts.Users;
 
@@ -35,6 +36,22 @@ namespace Postify.Api.Controllers
             );
         }
 
+        [HttpGet("{userId:guid}/followers")]
+        public async Task<IActionResult> GetUserFollowersAsync(Guid userId)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var query = new GetUserFollowersQuery(userId, email);
+            var result = await _mediator.Send(query);
+
+            var mappedUserFollowers = result.Value.Select(x => _mapper.Map<UserFollowerResponse>(x)).ToList();
+
+            return result.Match(
+                result => Ok(mappedUserFollowers),
+                Problem
+            );
+        }
+
         [HttpPost("friendship")]
         public async Task<IActionResult> GetFriendShipStatusAsync(GetFriendShipStatusRequest request)
         {
@@ -42,7 +59,7 @@ namespace Postify.Api.Controllers
             var result = await _mediator.Send(query);
 
             return result.Match(
-                _ => Ok(result.Value),
+                result => Ok(_mapper.Map<FriendShipStatusResponse>(result)),
                 Problem
             );
         }

@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IUser } from '../shared/types/user';
 import { CommonModule } from '@angular/common';
@@ -15,14 +15,23 @@ import { CommonModule } from '@angular/common';
 export class NavbarComponent implements OnInit {
   
   authService: AuthService = inject(AuthService);
-  
-  currentUser$!: Observable<IUser | null>;
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
+  cd: ChangeDetectorRef = inject(ChangeDetectorRef);
 
+  userId!: string;
+  currentUser$!: Observable<IUser | null>;
+  
   ngOnInit(): void {
     this.currentUser$ = this.authService.currentUser$;
+  }
+
+  onViewOwnProfileClicked(userId: string): void {
+    this.router.navigateByUrl('/profile/' + userId)
   }
   
   logout(): void {
     this.authService.logout();
   }
+
 }

@@ -1,0 +1,15 @@
+<div class="modal fade" id="followers-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-header">
+          <p class="modal-title text-center">Followers</p>
+          <i class="fa fa-close close cursor-pointer" data-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div  class="modal-body d-flex flex-column gap-3">
+          @for (follower of followers; track $index) {
+            <app-friendship-model-item [userId]="userId" [friendShip]="follower"></app-friendship-model-item>
+          }
+        </div>
+      </div>
+    </div>
+</div>

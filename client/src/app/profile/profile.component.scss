@@ -1,52 +1,56 @@
 .navbar-container {
-    position: fixed;
-    border-right: 1px solid #262626;
-    height: 100vh;
+  position: fixed;
+  border-right: 1px solid #262626;
+  height: 100vh;
 }
 
 .main-container {
-    min-width: 20rem;
-    margin-top: 2.5rem;
+  margin-top: 2.5rem;
+  padding-left: 23.7rem;
+
+  .user-container {
+    padding: 0 5rem;
+    .profile-img-container {
+      .profile-img {
+        object-fit: cover;
+        width: 9rem;
+        height: 9rem;
+        border-radius: 50%;
+      }
+    }
+    .user-info-container {
+      margin-left: 7rem;
+      height: inherit;
+      .section-1 {
+        .gear {
+          font-size: 1.4rem;
+        }
+        .username {
+          font-size: 1.3rem;
+        }
+        .profile-btn {
+          padding: 0.2rem 1rem;
+          font-weight: 600;
+          font-size: 0.9rem;
+          color: #ffffff;
+        }
+        .gray-btn {
+          background-color: rgb(54, 54, 54);
+        }
+      }
+      .section-3 {
+        p {
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 1887px) {
+  .main-container {
     padding-left: 35rem;
-
-    .user-container {
-        padding: 0 5rem;
-        .profile-img-container {
-            .profile-img {
-                object-fit: cover;
-                width: 9rem;
-                height: 9rem;
-                border-radius: 50%;
-            }
-        }
-        .user-info-container {
-            margin-left: 7rem;
-            height: inherit;
-            .section-1 {
-                .gear {
-                    font-size: 1.4rem;
-                }
-                .username {
-                    font-size: 1.3rem;
-                }
-                .profile-btn {
-                    padding: 0.2rem 1rem;
-                    font-weight: 600;
-                    font-size: 0.9rem;
-                    color: #ffffff;
-                    background-color: rgb(54, 54, 54);
-                }
-            }
-            .section-3 {
-                p {
-                    font-weight: 600;
-                    font-size: .9rem;
-                }
-            }
-        }
-    }
-
-    .post-container {
-        
-    }
+  }
 }

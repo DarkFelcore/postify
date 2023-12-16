@@ -1,0 +1,19 @@
+@switch (status) {
+    @case (FriendShipStatusEnum.Following) {
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn profile-btn gray-btn">Following</button>
+            @if (isProfilePage) {
+                <button class="btn profile-btn gray-btn">Message</button>
+            }
+        </div>
+    }
+    @case (FriendShipStatusEnum.FollowBack) {
+        <button class="btn profile-btn blue-btn">Follow Back</button>
+    }
+    @case (FriendShipStatusEnum.Pending) {
+        <button class="btn profile-btn gray-btn">Pending</button>
+    }
+    @case (FriendShipStatusEnum.Follow) {
+        <button class="btn profile-btn blue-btn">Follow</button>
+    }
+}

@@ -36,7 +36,6 @@ export class AuthService {
   login(request: LoginRequest) : Observable<IUser | null> {
     return this.http.post<IUser | null>(environment.baseUrl + 'auth/login', request).pipe(
       map((user: IUser | null) => {
-        console.log(user)
         user && this.notifyUserInformation(user);
         return user;
       })

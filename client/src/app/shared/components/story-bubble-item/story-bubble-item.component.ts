@@ -10,7 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class StoryBubbleItemComponent implements OnInit {
   height!: string;
   @Input() width!: string;
-  @Input() pictureUrl!: string;
+  @Input() pictureUrl!: string | undefined;
 
   ngOnInit(): void {
     this.height = this.width;

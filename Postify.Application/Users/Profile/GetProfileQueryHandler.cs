@@ -6,7 +6,7 @@ using Postify.Application.Common.Interfaces;
 using Postify.Application.Users.Common;
 using Postify.Domain.Errors;
 
-namespace Postify.Application.Users.GetProfile
+namespace Postify.Application.Users.Profile
 {
     public class GetProfileQueryHandler : IRequestHandler<GetProfileQuery, ErrorOr<ProfileResult>>
     {
@@ -27,7 +27,7 @@ namespace Postify.Application.Users.GetProfile
             var followersCount = (await _unitOfWork.UserRepository.GetUserFollowersAsync(query.UserId)).Count;
             var followingsCount = (await _unitOfWork.UserRepository.GetUserFollowingsAsync(query.UserId)).Count;
 
-            return new ProfileResult(user.Id, user.FirstName, user.LastName, user.UserName, Convert.ToBase64String(user.PictureUrl!), followersCount, followingsCount, posts);
+            return new ProfileResult(user.Id, user.FirstName, user.LastName, user.UserName, user.PictureUrl != null ? Convert.ToBase64String(user.PictureUrl) : null, followersCount, followingsCount, posts);
         }
     }
 }
