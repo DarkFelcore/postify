@@ -7,6 +7,7 @@ namespace Postify.Application.Common.Interfaces
         // Repositories
         IUserRepository UserRepository { get; }
         IPostRepository PostRepository { get; }
-        
+        IFriendshipRepository FriendshipRepository { get; }
+        INotificationRepository NotificationRepository { get; }
     }
 }

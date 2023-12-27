@@ -87,6 +87,39 @@ namespace Postify.Infrastructure.Migrations
                     b.ToTable("Friendships");
                 });
 
+            modelBuilder.Entity("Postify.Domain.Entities.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("Postify.Domain.Entities.Post", b =>
                 {
                     b.Property<Guid>("Id")
@@ -210,6 +243,17 @@ namespace Postify.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Postify.Domain.Entities.Notification", b =>
+                {
+                    b.HasOne("Postify.Domain.Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Postify.Domain.Entities.Post", b =>
                 {
                     b.HasOne("Postify.Domain.Entities.User", "User")
@@ -255,6 +299,8 @@ namespace Postify.Infrastructure.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Friendships");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("PostLikes");
 

@@ -14,11 +14,19 @@
                 <i class="fa-solid fa-paper-plane me-3"></i>
                 Chat messages
             </li>
+            <li class="nav-item cursor-pointer mt-3 p-2" data-toggle="modal" data-target="#notifications-modal">
+                <i class="fa-solid fa-bell me-3">
+                    @if (notificationReceived) {
+                        <div class="indicator"></div>
+                    }
+                </i>
+                Notifications
+            </li>
             <li (click)="onViewOwnProfileClicked(user.id)" routerLink="/profile/{{user.id}}" class="nav-item cursor-pointer mt-3 p-2">
                 <img class="img-fluid" src="data:image/png;base64,{{user.pictureUrl}}" alt="profile-img">
                 Profile
             </li>
         </ul>
-        <p (click)="logout()" class="d-flex justify-content-center text-danger p-2 cursor-pointer">Sign-out</p>
     </div>
 </div>
+<app-notifications-modal></app-notifications-modal>

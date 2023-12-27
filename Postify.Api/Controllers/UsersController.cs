@@ -5,11 +5,14 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using Postify.Api.Extensions;
-using Postify.Application.Users.FriendShips.ByUserId;
+using Postify.Application.Users.FriendShips.UserFollowers;
 using Postify.Application.Users.FriendShips.Status;
 using Postify.Application.Users.Profile;
 using Postify.Contracts.Posts;
 using Postify.Contracts.Users;
+using Postify.Application.Users.FriendShips.UserFollowings;
+using Postify.Application.Users.FriendShips.UnfollowUser;
+using Postify.Application.Users.FriendShips.FollowUser;
 
 namespace Postify.Api.Controllers
 {
@@ -44,7 +47,23 @@ namespace Postify.Api.Controllers
             var query = new GetUserFollowersQuery(userId, email);
             var result = await _mediator.Send(query);
 
-            var mappedUserFollowers = result.Value.Select(x => _mapper.Map<UserFollowerResponse>(x)).ToList();
+            var mappedUserFollowers = result.Value.Select(x => _mapper.Map<UserFriendShipResponse>(x)).ToList();
+
+            return result.Match(
+                result => Ok(mappedUserFollowers),
+                Problem
+            );
+        }
+
+        [HttpGet("{userId:guid}/followings")]
+        public async Task<IActionResult> GetUserFollowingsAsync(Guid userId)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var query = new GetUserFollowingsQuery(userId, email);
+            var result = await _mediator.Send(query);
+
+            var mappedUserFollowers = result.Value.Select(x => _mapper.Map<UserFriendShipResponse>(x)).ToList();
 
             return result.Match(
                 result => Ok(mappedUserFollowers),
@@ -60,6 +79,34 @@ namespace Postify.Api.Controllers
 
             return result.Match(
                 result => Ok(_mapper.Map<FriendShipStatusResponse>(result)),
+                Problem
+            );
+        }
+
+        [HttpPost("follow")]
+        public async Task<IActionResult> FollowUserAsync(FollowUserRequest request)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = _mapper.Map<FollowUserCommand>((email, request));
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => NoContent(),
+                Problem
+            );
+        }
+
+        [HttpDelete("unfollow/{userId:guid}")]
+        public async Task<IActionResult> UnfollowUserAsync(Guid userId)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = new UnfollowUserCommand(userId, email);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => NoContent(),
                 Problem
             );
         }

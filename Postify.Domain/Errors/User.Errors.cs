@@ -10,6 +10,11 @@ namespace Postify.Domain.Errors
                 code: "User.NotFound",
                 description: "User not found"
             );
+
+            public static Error FriendShipNotFound => Error.NotFound(
+                code: "User.FriendShipNotFound",
+                description: "FriendShip not found"
+            );
         }
     }
 }

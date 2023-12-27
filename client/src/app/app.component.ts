@@ -5,7 +5,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthService } from './auth/auth.service';
 import { IUser } from './shared/types/user';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToastrModule } from 'ngx-toastr';
+import { SignalrService } from './shared/services/signalr.service';
 
 @Component({
   selector: 'app-root',

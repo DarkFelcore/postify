@@ -1,6 +1,6 @@
-namespace Postify.Contracts.Users
+namespace Postify.Application.Users.Common
 {
-    public record UserFollowerResponse(
+    public record UserFriendShipResult(
         Guid Id,
         string? PictureUrl,
         string UserName,

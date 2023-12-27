@@ -10,6 +10,7 @@ import { FriendshipModelItemComponent } from './components/friendship-model-item
   styleUrl: './friendship-model.component.scss'
 })
 export class FriendshipModelComponent {
-  @Input() followers!: IFriendShip[];
+  @Input() friendships!: IFriendShip[];
   @Input() userId!: string | undefined;
+  @Input() friendShipKind!: 'Followers' | 'Followings';
 }

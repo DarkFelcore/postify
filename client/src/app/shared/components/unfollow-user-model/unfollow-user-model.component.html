@@ -1,0 +1,16 @@
+@if (userService.getUserToUnfollow()) {
+  <div class="modal fade" id="unfollow-user-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-body">
+          <div class="d-flex flex-column align-items-center gap-3 px-4 pt-4 pb-3">
+            <img src="data:image/png;base64,{{userService.getUserToUnfollow().pictureUrl}}" alt="profile-image">
+            <p class="text-center">If you change your mind, you'll have to request to follow &commat;{{userService.getUserToUnfollow().userName}} again.</p>
+          </div>
+          <button (click)="onUnfollowButtonClicked()" data-dismiss="modal" class="unfollow btn text-danger">Unfollow</button>
+          <button data-dismiss="modal" class="unfollow btn cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,15 @@
+<div class="modal fade" id="notifications-modal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark">
+        <div class="modal-header header">
+          <p class="modal-title text-center">Notifications</p>
+          <i class="fa fa-close close cursor-pointer" data-dismiss="modal" aria-label="Close"></i>
+        </div>
+        <div  class="modal-body body d-flex flex-column gap-3">
+          <div class="w-100">
+            <p (click)="markAllNotificationsAsRead()" class="mark-as-read cursor-pointer text-end">Mark all as read</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

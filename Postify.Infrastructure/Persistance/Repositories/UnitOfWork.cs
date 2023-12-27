@@ -7,7 +7,9 @@ namespace Postify.Infrastructure.Persistance.Repositories
         private readonly ApplicationDbContext _context;
 
         public IUserRepository UserRepository { get; private set; }
-        public IPostRepository PostRepository { get; set; }
+        public IPostRepository PostRepository { get; private set; }
+        public IFriendshipRepository FriendshipRepository { get; private set; }
+        public INotificationRepository NotificationRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -16,6 +18,8 @@ namespace Postify.Infrastructure.Persistance.Repositories
             // Repositories
             UserRepository = new UserRepository(context);
             PostRepository = new PostRepository(context);
+            FriendshipRepository = new FriendshipRepository(context);
+            NotificationRepository = new NotificationRepository(context);
         }
 
         public async Task CompleteAsync()

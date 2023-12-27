@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Postify.Api;
 using Postify.Application;
+using Postify.Application.Common.Hubs;
 using Postify.Infrastructure;
 using Postify.Infrastructure.Persistance;
 
@@ -22,6 +23,7 @@ var app = builder.Build();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
+    app.MapHub<NotificationHub>("/Notify");
 
     using (var scope = app.Services.CreateScope())
     {

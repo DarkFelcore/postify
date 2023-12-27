@@ -1,13 +1,14 @@
 using System.Text;
-
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-
+using Postify.Application.Common.Hubs;
 using Postify.Application.Common.Interfaces;
+using Postify.Application.Common.Services;
 using Postify.Infrastructure.Authentication;
 using Postify.Infrastructure.Persistance;
 using Postify.Infrastructure.Persistance.Repositories;
@@ -22,7 +23,9 @@ namespace Postify.Infrastructure
             services
                 .AddAuth(configuration)
                 .AddPersistance(configuration);
+            services.AddSignalR();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IUserConnectionService, UserConnectionService>();
             return services;
         }
 

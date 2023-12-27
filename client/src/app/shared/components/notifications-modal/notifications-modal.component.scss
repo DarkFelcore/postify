@@ -1,0 +1,23 @@
+.modal-dialog {
+    max-width: 24rem;
+    padding-bottom: 16rem;
+
+    .header {
+        border-bottom: 1px solid rgb(54, 54, 54);
+        p {
+            width: 100%;
+            font-weight: bold;
+        }
+    }
+    .body {
+        .mark-as-read {
+            color: rgb(0, 149, 246);
+            font-size: 0.8rem;
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

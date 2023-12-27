@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 using ErrorOr;
 
 using MediatR;
@@ -7,12 +5,11 @@ using MediatR;
 using Postify.Application.Common.Interfaces;
 using Postify.Application.Users.Common;
 using Postify.Application.Users.FriendShips.Helpers;
-using Postify.Domain.Entities.Enums;
 using Postify.Domain.Errors;
 
-namespace Postify.Application.Users.FriendShips.ByUserId
+namespace Postify.Application.Users.FriendShips.UserFollowers
 {
-    public class GetUserFollowersQueryHandler : IRequestHandler<GetUserFollowersQuery, ErrorOr<List<UserFollowerResult>>>
+    public class GetUserFollowersQueryHandler : IRequestHandler<GetUserFollowersQuery, ErrorOr<List<UserFriendShipResult>>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -21,9 +18,9 @@ namespace Postify.Application.Users.FriendShips.ByUserId
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ErrorOr<List<UserFollowerResult>>> Handle(GetUserFollowersQuery query, CancellationToken cancellationToken)
+        public async Task<ErrorOr<List<UserFriendShipResult>>> Handle(GetUserFollowersQuery query, CancellationToken cancellationToken)
         {
-            var userFollowersResultList = new List<UserFollowerResult>();
+            var userFollowersResultList = new List<UserFriendShipResult>();
 
             var loggedInUserId = (await _unitOfWork.UserRepository.GetUserByEmailAsync(query.Email!))!.Id;
 
@@ -39,7 +36,7 @@ namespace Postify.Application.Users.FriendShips.ByUserId
                 // Get the friendship status of the logged in user with the profile user followers
                 var status = await FriendShipHelpers.GetFriendShipStatus(loggedInUserId, follower.FollowerId, _unitOfWork);
 
-                userFollowersResultList.Add(new UserFollowerResult(
+                userFollowersResultList.Add(new UserFriendShipResult(
                     user.Id,
                     user.PictureUrl != null ? Convert.ToBase64String(user.PictureUrl) : null,
                     user.UserName,
@@ -49,8 +46,9 @@ namespace Postify.Application.Users.FriendShips.ByUserId
                 ));
             }
 
-            return userFollowersResultList;
+            userFollowersResultList = [.. userFollowersResultList.OrderBy(u => u.Id == loggedInUserId ? 0 : 1)];
 
+            return userFollowersResultList;
         }
     }
 }

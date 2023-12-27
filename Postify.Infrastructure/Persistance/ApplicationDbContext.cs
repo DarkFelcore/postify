@@ -17,6 +17,7 @@ namespace Postify.Infrastructure.Persistance
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<PostLike> PostLikes { get; set; }
         public DbSet<Follower> Friendships { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,7 @@ namespace Postify.Infrastructure.Persistance
             modelBuilder.ApplyConfiguration(new PostLikeConfiguration());
             modelBuilder.ApplyConfiguration(new CommentLikeConfiguration());
             modelBuilder.ApplyConfiguration(new FollowerConfiguration());
+            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
         }
     }
 }

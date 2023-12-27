@@ -5,7 +5,7 @@ import { IProfile } from '../shared/types/profile';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProfileTabListComponent } from './components/profile-tab-list/profile-tab-list.component';
-import { FriendShipStatusEnum, IFriendShip, IFriendShipStatus, IUser } from '../shared/types/user';
+import { FriendShipStatusEnum, IFriendShip, IFriendShipStatus, IUser, IUserToUnfollow } from '../shared/types/user';
 import { AuthService } from '../auth/auth.service';
 import { IGetUserFriendShipRequest } from '../shared/types/requests/get-user-friendship-request';
 import { FriendshipStatusButtonComponent } from '../shared/components/friendship-status-button/friendship-status-button.component';
@@ -26,6 +26,8 @@ export class ProfileComponent implements OnInit {
   friendship!: IFriendShipStatus;
   friendships!: IFriendShip[];
 
+  friendShipKind!: 'Followers' | 'Followings';
+
   @ViewChild('tabListComponent') tabListComponent!: ProfileTabListComponent;
 
   userService: UserService = inject(UserService);
@@ -37,6 +39,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.loadLoggedInUser();
     this.loadUserProfile();
+    this.listenFriendshipChanged();
+  }
+
+  listenFriendshipChanged(): void {
+    this.userService.friendshipStatusChangedEmitter.subscribe({
+      next: () => this.loadUserFriendshipStatus()
+    })
   }
 
   loadUserFriendshipStatus(): void {
@@ -45,7 +54,7 @@ export class ProfileComponent implements OnInit {
       profileId: String(this.activatedRoute.snapshot.paramMap.get('userId'))
     }
     this.userService.getFriendShipStatus(request).subscribe({
-      next: (status: IFriendShipStatus) => this.friendship = status,
+      next: (status: IFriendShipStatus) =>  this.friendship = status,
       error: (err: HttpErrorResponse) => console.log(err),
     })
   }
@@ -73,9 +82,24 @@ export class ProfileComponent implements OnInit {
   }
 
   onFollowersCountClicked(): void {
+    this.friendShipKind = 'Followers';
     this.userService.getUserFollowers(this.profile.id).subscribe({
-      next: (friendships: IFriendShip[]) => this.friendships = friendships,
-      error: (err: HttpErrorResponse) => console.log(err)
+      next: (friendships: IFriendShip[]) => {
+        this.friendships = [];
+        this.friendships = friendships
+      },
+      error: (err: HttpErrorResponse) => console.log(err),
+    })
+  }
+
+  onFollowingsCountClicked(): void {
+    this.friendShipKind = 'Followings';
+    this.userService.getUserFollowings(this.profile.id).subscribe({
+      next: (friendships: IFriendShip[]) => {
+        this.friendships = [];
+        this.friendships = friendships;
+      },
+      error: (err: HttpErrorResponse) => console.log(err),
     })
   }
 
@@ -86,6 +110,4 @@ export class ProfileComponent implements OnInit {
   get FriendShipStatusEnum() {
     return FriendShipStatusEnum;
   }
-
-  
 }

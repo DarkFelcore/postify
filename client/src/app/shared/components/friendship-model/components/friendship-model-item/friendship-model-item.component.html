@@ -8,7 +8,7 @@
     </div>
     <div class="section-2">
         @if (userId !== friendShip.id) {
-            <app-friendship-status-button [isProfilePage]="false" [status]="friendShip.friendShipStatus"></app-friendship-status-button>
+            <app-friendship-status-button [user]="friendShip" [isProfilePage]="false" [status]="friendShip.friendShipStatus"></app-friendship-status-button>
         }
     </div>
 </div>

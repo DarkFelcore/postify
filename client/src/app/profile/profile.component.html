@@ -14,7 +14,7 @@
                             <div class="d-flex align-items-center gap-4">
                                 <p class="username">{{profile.userName}}</p>
                                 @if (!isOwnProfile() && friendship) {
-                                    <app-friendship-status-button [status]="friendship.status"></app-friendship-status-button>
+                                    <app-friendship-status-button [user]="profile" [status]="friendship.status"></app-friendship-status-button>
                                 }
                                 @if(isOwnProfile())
                                 {
@@ -25,8 +25,8 @@
                         </div>
                         <div class="section-2 d-flex align-items-center gap-5 mt-4">
                             <p (click)="onPostCountClicked()" class="cursor-pointer"><strong>{{profile.posts.length}} </strong>posts</p>
-                            <p (click)="onFollowersCountClicked()" class="cursor-pointer" data-toggle="modal" data-target="#followers-modal"><strong>{{profile.followersCount}} </strong>followers</p>
-                            <p class="cursor-pointer"><strong>{{profile.followingCount}} </strong>following</p>
+                            <p (click)="onFollowersCountClicked()" class="cursor-pointer" data-toggle="modal" data-target="#friendship-modal"><strong>{{profile.followersCount}} </strong>followers</p>
+                            <p (click)="onFollowingsCountClicked()" class="cursor-pointer" data-toggle="modal" data-target="#friendship-modal"><strong>{{profile.followingCount}} </strong>following</p>
                         </div>
                         <div class="section-3 mt-3">
                             <p>{{profile.firstName}} {{profile.lastName}}</p>
@@ -38,6 +38,6 @@
                 </div>
             </div>
         </div>
-        <app-friendship-model [userId]="currentUser?.id" [followers]="friendships"></app-friendship-model>
+        <app-friendship-model [friendShipKind]="friendShipKind" [userId]="currentUser?.id" [friendships]="friendships"></app-friendship-model>
     </div>
 }

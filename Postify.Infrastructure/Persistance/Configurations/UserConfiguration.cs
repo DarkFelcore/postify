@@ -22,7 +22,7 @@ namespace Postify.Infrastructure.Persistance.Configurations
                 .WithOne(p => p.User)
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.ClientCascade);
-            
+
             builder
                 .HasMany(u => u.CommentLikes)
                 .WithOne()
@@ -39,6 +39,12 @@ namespace Postify.Infrastructure.Persistance.Configurations
                 .HasMany(x => x.Friendships)
                 .WithOne()
                 .HasForeignKey(x => x.FollowedId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasMany(x => x.Notifications)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.ReceiverId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

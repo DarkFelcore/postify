@@ -4,15 +4,18 @@ export interface IUser {
     token: string;
 }
 
-export interface IFriendShipStatus {
-    status: string;
+export interface IFollowUserRequest {
+    userId: string;
 }
 
-export enum FriendShipStatusEnum {
-    Following = "Following",
-    Pending = "Pending",
-    Follow = "Follow",
-    FollowBack = "Follow Back",
+export interface IUserToUnfollow {
+    id: string;
+    pictureUrl?: string;
+    userName: string;
+}
+
+export interface IFriendShipStatus {
+    status: string;
 }
 
 export interface IFriendShip {
@@ -22,4 +25,11 @@ export interface IFriendShip {
     firstName: string;
     lastName: string;
     friendShipStatus: FriendShipStatusEnum;
+}
+
+export enum FriendShipStatusEnum {
+    Following = "Following",
+    Pending = "Pending",
+    Follow = "Follow",
+    FollowBack = "Follow Back",
 }

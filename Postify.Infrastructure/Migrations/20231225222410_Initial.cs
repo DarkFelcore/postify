@@ -48,6 +48,29 @@ namespace Postify.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SenderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -159,6 +182,11 @@ namespace Postify.Infrastructure.Migrations
                 column: "FollowedId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notifications_ReceiverId",
+                table: "Notifications",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PostLikes_PostId",
                 table: "PostLikes",
                 column: "PostId");
@@ -177,6 +205,9 @@ namespace Postify.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Friendships");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "PostLikes");
