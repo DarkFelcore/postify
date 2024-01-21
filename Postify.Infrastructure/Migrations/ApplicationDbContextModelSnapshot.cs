@@ -191,6 +191,15 @@ namespace Postify.Infrastructure.Migrations
                     b.Property<byte[]>("PictureUrl")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TokenCreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("TokenExipreDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

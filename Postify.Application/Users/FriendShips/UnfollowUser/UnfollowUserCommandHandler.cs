@@ -3,6 +3,7 @@ using ErrorOr;
 using MediatR;
 
 using Postify.Application.Common.Interfaces;
+using Postify.Domain.Entities.Enums;
 using Postify.Domain.Errors;
 
 namespace Postify.Application.Users.FriendShips.UnfollowUser
@@ -26,7 +27,18 @@ namespace Postify.Application.Users.FriendShips.UnfollowUser
 
             if (friendShip is null) return Errors.User.FriendShipNotFound;
 
+            // Check if there is a follow request notification available. If so delete that notification
+            var notificationFollowRequest = await _unitOfWork.NotificationRepository.CheckNotificationExistsAsync(loggedInUser.Id, command.UserId, NotificationType.FollowRequest);
+            var notificationFollowRequestAccepted = await _unitOfWork.NotificationRepository.CheckNotificationExistsAsync(loggedInUser.Id, command.UserId, NotificationType.FollowAccepted);
+
+            // Delete Follower request notification and or Follow accepted notification
+            if(notificationFollowRequest is not null) _unitOfWork.NotificationRepository.Delete(notificationFollowRequest);
+            if(notificationFollowRequestAccepted is not null) _unitOfWork.NotificationRepository.Delete(notificationFollowRequestAccepted);
+
+            // Delete friendsip
             _unitOfWork.FriendshipRepository.Delete(friendShip);
+            
+            // Persist changes
             await _unitOfWork.CompleteAsync();
 
             return true;

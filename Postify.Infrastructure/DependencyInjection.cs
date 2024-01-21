@@ -23,6 +23,8 @@ namespace Postify.Infrastructure
             services
                 .AddAuth(configuration)
                 .AddPersistance(configuration);
+                
+            services.AddHttpContextAccessor();
             services.AddSignalR();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<IUserConnectionService, UserConnectionService>();
@@ -47,7 +49,7 @@ namespace Postify.Infrastructure
             configuration.Bind(JwtSettings.SectionName, jwtSettings);
 
             services.AddSingleton(Options.Create(jwtSettings));
-            services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGenerator>();
 
             services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters

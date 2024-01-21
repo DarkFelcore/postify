@@ -31,43 +31,53 @@ namespace Postify.Application.Users.FriendShips.FollowUser
 
             if (loggedInUser is null) return Errors.User.NotFound;
 
-            var newFriendShip = new Follower(loggedInUser.Id, command.UserId, FriendshipStatus.Pending);
+            var friendShip = await _unitOfWork.UserRepository.GetFriendShipStatusAsync(loggedInUser.Id, command.UserId);
 
-            await _unitOfWork.FriendshipRepository.AddAsync(newFriendShip);
+            if(friendShip is not null)
+            {
+                friendShip.UpdateFriendshipStatus(FriendshipStatus.Pending);
+                _unitOfWork.FriendshipRepository.Update(friendShip);
+            }
+            else
+            {
+                friendShip = new Follower(loggedInUser.Id, command.UserId, FriendshipStatus.Pending);
+                await _unitOfWork.FriendshipRepository.AddAsync(friendShip);
+            }
 
-            var followRequestUser = await _unitOfWork.UserRepository.GetByIdAsync(newFriendShip.FollowerId);
+            var followRequestUser = await _unitOfWork.UserRepository.GetByIdAsync(friendShip.FollowerId);
 
             if (followRequestUser is null) return Errors.User.NotFound;
 
-            var notification = new Notification(
+            var newNotification = new Notification(
                 message: $"{followRequestUser.UserName} wants to follow you.",
                 isRead: false,
                 type: NotificationType.FollowRequest,
-                receiverId: newFriendShip.FollowedId,
-                senderId: newFriendShip.FollowerId
+                receiverId: friendShip.FollowedId,
+                senderId: friendShip.FollowerId
             );
 
-            var existingNotification = await _unitOfWork.NotificationRepository.CheckFollowRequestNotificationExistsAsync(notification);
+            var existingNotification = await _unitOfWork.NotificationRepository.CheckNotificationExistsAsync(friendShip.FollowerId, friendShip.FollowedId, NotificationType.FollowRequest);
 
             // Replace existingNotification with notification
             if (existingNotification is not null)
             {
-                existingNotification.UpdateNotification();
+                // Only update the creation time to the current timestamp
+                existingNotification.UpdateCreationTimeNotification();
                 _unitOfWork.NotificationRepository.Update(existingNotification);
             }
             // Add new notification
             else
             {
-                await _unitOfWork.NotificationRepository.AddAsync(notification);
+                await _unitOfWork.NotificationRepository.AddAsync(newNotification);
             }
 
             // Save changes to the database
             await _unitOfWork.CompleteAsync();
 
-            var followedUserConnectionId = _userConnectionService.GetUserConnectionId(newFriendShip.FollowedId.ToString());
+            var followedUserConnectionId = _userConnectionService.GetUserConnectionId(friendShip.FollowedId.ToString());
 
             // Send notification to the the notification hub
-            if (followedUserConnectionId is not null) await _notification.Clients.Client(followedUserConnectionId!).SendNotification(notification);
+            if (followedUserConnectionId is not null) await _notification.Clients.Client(followedUserConnectionId!).SendNotification(newNotification);
 
             return true;
         }

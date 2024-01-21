@@ -4,13 +4,17 @@ using MediatR;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
+using Microsoft.VisualBasic;
 
 using Postify.Api.Extensions;
 using Postify.Application.Auth.CurrentUser;
 using Postify.Application.Auth.Login;
+using Postify.Application.Auth.RefreshTokens;
 using Postify.Application.Auth.Register;
 using Postify.Contracts.Auth.Common;
 using Postify.Contracts.Auth.Login;
+using Postify.Contracts.Auth.RefreshToken;
 using Postify.Contracts.Auth.Register;
 
 namespace Postify.Api.Controllers
@@ -58,6 +62,19 @@ namespace Postify.Api.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
         {
             var command = _mapper.Map<RegisterCommand>(request);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                result => Ok(_mapper.Map<AuthenticationResponse>(result)),
+                Problem
+            );
+        }
+
+        [AllowAnonymous]
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshTokenAsync([FromBody] RefreshTokenRequest request)
+        {
+            var command = _mapper.Map<RefreshTokenCommand>(request);
             var result = await _mediator.Send(command);
 
             return result.Match(

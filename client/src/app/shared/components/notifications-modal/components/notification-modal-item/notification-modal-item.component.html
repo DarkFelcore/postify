@@ -1,1 +1,37 @@
-<p>notification-modal-item works!</p>
+<div class="notifcifation-item-wrapper">
+  
+  <!-- Follow Request -->
+  @if (notification.type === NotificationTypeEnum.FollowRequest) {
+    <div class="d-flex justify-content-between align-items-center gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <app-story-bubble-item
+          width="40"
+          pictureUrl="data:image/png;base64,{{
+            notification.followRequestPictureUrl
+          }}"
+        ></app-story-bubble-item>
+        <p>&#x40;{{ notification.message }}</p>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button (click)="onFollowRequestAcceptedClicked()" class="btn btn-primary btn-sm">Accept</button>
+        <button (click)="onFollowRequestRejectedClicked()" class="btn btn-secondary btn-sm">Refuse</button>
+      </div>
+    </div>
+  } 
+  
+  <!-- Follow Request Accepted -->
+  @if (notification.type === NotificationTypeEnum.FollowAccepted) {
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <app-story-bubble-item
+          width="40"
+          pictureUrl="data:image/png;base64,{{
+            notification.followRequestAcceptedPictureUrl
+          }}"
+        ></app-story-bubble-item>
+        <p>&#x40;{{ notification.message }}</p>
+      </div>
+    </div>
+  }
+
+</div>

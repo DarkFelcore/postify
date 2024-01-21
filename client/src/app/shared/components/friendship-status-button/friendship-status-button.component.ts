@@ -1,10 +1,12 @@
 import { Component, Input, inject, signal } from '@angular/core';
-import { FriendShipStatusEnum, IFollowUserRequest, IFriendShip, IUserToUnfollow } from '../../types/user';
+import { IFriendShip, IUserToUnfollow } from '../../types/user';
 import { UnfollowUserModelComponent } from '../unfollow-user-model/unfollow-user-model.component';
 import { UserService } from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IProfile } from '../../types/profile';
 import { Router } from '@angular/router';
+import { FriendShipStatusEnum } from '../../types/enums/enums';
+import { IFollowUserRequest } from '../../types/requests/requests';
 
 @Component({
   selector: 'app-friendship-status-button',

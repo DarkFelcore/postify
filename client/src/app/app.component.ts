@@ -5,21 +5,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthService } from './auth/auth.service';
 import { IUser } from './shared/types/user';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SignalrService } from './shared/services/signalr.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule, 
-    RouterOutlet, 
-    NgxSpinnerModule
-  ],
+  imports: [CommonModule, RouterOutlet, NgxSpinnerModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
   authService: AuthService = inject(AuthService);
 
   ngOnInit(): void {
@@ -27,10 +21,10 @@ export class AppComponent implements OnInit {
   }
 
   loadCurrentUser(): void {
-    const token : string = localStorage.getItem('token') as string;
+    const token: string = localStorage.getItem('token') as string;
     this.authService.loadCurrentUser(token).subscribe({
       next: (user: IUser | null) => {},
-      error: (err: HttpErrorResponse) => this.authService.clearUser()
+      error: (err: HttpErrorResponse) => {},
     });
   }
 }

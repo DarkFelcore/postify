@@ -10,6 +10,9 @@ namespace Postify.Domain.Entities
         public string Email { get; private set; } = string.Empty;
         public string PasswordHash { get; private set; } = string.Empty;
         public byte[]? PictureUrl { get; private set; }
+        public string? Token { get; set; }
+        public DateTime? TokenCreateDate { get; set; }
+        public DateTime? TokenExipreDate { get; set; }
 
         // Relationships
         public List<Comment>? Comments { get; private set; } = null!;

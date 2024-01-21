@@ -12,8 +12,8 @@ using Postify.Infrastructure.Persistance;
 namespace Postify.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231225222410_Initial")]
-    partial class Initial
+    [Migration("20240118183254_initial-migration")]
+    partial class initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,6 +193,15 @@ namespace Postify.Infrastructure.Migrations
 
                     b.Property<byte[]>("PictureUrl")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TokenCreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("TokenExipreDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .IsRequired()

@@ -16,5 +16,10 @@ namespace Postify.Domain.Entities
             FollowedId = followedId;
             Status = status;
         }
+
+        public void UpdateFriendshipStatus(FriendshipStatus status)
+        {
+            Status = status;
+        }
     }
 }

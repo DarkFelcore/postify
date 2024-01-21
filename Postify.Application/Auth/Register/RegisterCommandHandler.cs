@@ -2,8 +2,11 @@ using ErrorOr;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Http;
+
 using Postify.Application.Auth.Common;
 using Postify.Application.Common.Interfaces;
+using Postify.Domain.Aggregates;
 using Postify.Domain.Entities;
 using Postify.Domain.Errors;
 
@@ -46,18 +49,32 @@ namespace Postify.Application.Auth.Register
                 passwordHash
             );
 
-            // Persist the new user
-            await _unitOfWork.UserRepository.AddAsync(user);
-            await _unitOfWork.CompleteAsync();
-
             // Generate token
-            var token = _jwtTokenGenerator.GenerateToken(user);
+            var token = _jwtTokenGenerator.GenerateJWTToken(user);
+
+            // Generate refresh token
+            var refreshToken = _jwtTokenGenerator.GenerateRefreshToken();
+
+            var mappedUser = MapRefreshTokenInfoToUser(user, refreshToken);
+
+            // Persist the new user
+            await _unitOfWork.UserRepository.AddAsync(mappedUser);
+            await _unitOfWork.CompleteAsync();
 
             return new AuthenticationResult(
                 user.Id,
                 user.PictureUrl != null ? Convert.ToBase64String(user.PictureUrl) : "",
-                token
+                token,
+                refreshToken.Token
             );
+        }
+
+        private static User MapRefreshTokenInfoToUser(User user, RefreshToken refreshToken)
+        {
+            user.Token = refreshToken.Token;
+            user.TokenCreateDate = refreshToken.Created;
+            user.TokenExipreDate = refreshToken.Expired;
+            return user;
         }
     }
 }

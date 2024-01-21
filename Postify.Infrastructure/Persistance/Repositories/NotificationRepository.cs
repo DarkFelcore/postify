@@ -12,12 +12,17 @@ namespace Postify.Infrastructure.Persistance.Repositories
         {
         }
 
-        public async Task<Notification?> CheckFollowRequestNotificationExistsAsync(Notification notification)
+        public async Task<Notification?> CheckNotificationExistsAsync(Guid senderId, Guid receiverId, NotificationType type)
         {
             return await _context.Notifications.FirstOrDefaultAsync(x =>
-                x.Type == NotificationType.FollowRequest &&
-                x.SenderId == notification.SenderId &&
-                x.ReceiverId == notification.ReceiverId);
+                x.Type == type &&
+                x.SenderId == senderId &&
+                x.ReceiverId == receiverId);
+        }
+
+        public async Task<List<Notification>> GetAllUserNotificationsAsync(Guid userId)
+        {
+            return await _context.Notifications.Where(x => x.ReceiverId == userId).ToListAsync();
         }
     }
 }

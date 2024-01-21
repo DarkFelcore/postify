@@ -15,6 +15,11 @@ namespace Postify.Domain.Errors
                 code: "User.FriendShipNotFound",
                 description: "FriendShip not found"
             );
+
+            public static Error FollowRequestNotPending => Error.NotFound(
+                code: "User.FollowRequestNotPending",
+                description: "Friendship status is not in a pending state"
+            );
         }
     }
 }

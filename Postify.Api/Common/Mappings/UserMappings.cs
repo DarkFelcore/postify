@@ -1,7 +1,9 @@
 using Mapster;
 
 using Postify.Application.Users.Common;
+using Postify.Application.Users.FriendShips.AcceptFollowRequest;
 using Postify.Application.Users.FriendShips.FollowUser;
+using Postify.Application.Users.FriendShips.RejectFollowRequest;
 using Postify.Application.Users.FriendShips.Status;
 using Postify.Contracts.Users;
 using Postify.Domain.Entities;
@@ -26,6 +28,14 @@ namespace Postify.Api.Common.Mappings
                 .Map(dest => dest, src => src);
 
             config.NewConfig<(string Email, FollowUserRequest Request), FollowUserCommand>()
+                .Map(dest => dest.Email, src => src.Email)
+                .Map(dest => dest, src => src.Request);
+            
+            config.NewConfig<(string Email, AcceptFollowRequest Request), AcceptFollowRequestCommand>()
+                .Map(dest => dest.Email, src => src.Email)
+                .Map(dest => dest, src => src.Request);
+
+            config.NewConfig<(string Email, RejectFollowRequest Request), RejectFollowRequestCommand>()
                 .Map(dest => dest.Email, src => src.Email)
                 .Map(dest => dest, src => src.Request);
         }

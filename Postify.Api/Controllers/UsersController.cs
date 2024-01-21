@@ -13,6 +13,8 @@ using Postify.Contracts.Users;
 using Postify.Application.Users.FriendShips.UserFollowings;
 using Postify.Application.Users.FriendShips.UnfollowUser;
 using Postify.Application.Users.FriendShips.FollowUser;
+using Postify.Application.Users.FriendShips.AcceptFollowRequest;
+using Postify.Application.Users.FriendShips.RejectFollowRequest;
 
 namespace Postify.Api.Controllers
 {
@@ -96,6 +98,35 @@ namespace Postify.Api.Controllers
                 Problem
             );
         }
+
+        [HttpPost("follow/accepted")]
+        public async Task<IActionResult> AcceptFollowRequestAsync(AcceptFollowRequest request)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = _mapper.Map<AcceptFollowRequestCommand>((email, request));
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                _ => NoContent(),
+                Problem
+            );
+        }
+
+        [HttpPost("follow/rejected")]
+        public async Task<IActionResult> RejectFollowRequestAsync(RejectFollowRequest request)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = _mapper.Map<RejectFollowRequestCommand>((email, request));
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                _ => NoContent(),
+                Problem
+            );
+        }
+
 
         [HttpDelete("unfollow/{userId:guid}")]
         public async Task<IActionResult> UnfollowUserAsync(Guid userId)

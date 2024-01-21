@@ -24,12 +24,14 @@ namespace Postify.Application.Auth.CurrentUser
 
             if(user is null) return Errors.User.NotFound;
 
-            var token = _jwtTokenGenerator.GenerateToken(user);
+            var token = _jwtTokenGenerator.GenerateJWTToken(user);
+            var refreshToken = _jwtTokenGenerator.GenerateRefreshToken();
 
             return new AuthenticationResult(
                 user.Id,
                 user.PictureUrl != null ? Convert.ToBase64String(user.PictureUrl) : "",
-                token
+                token,
+                refreshToken.Token
             );
         }
     }

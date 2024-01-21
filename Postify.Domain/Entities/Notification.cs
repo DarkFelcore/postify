@@ -28,9 +28,24 @@ namespace Postify.Domain.Entities
             Type = type;
         }
 
-        public void UpdateNotification()
+        public void UpdateCreationTimeNotification()
         {
             CreatedAt = DateTime.UtcNow;
+        }
+
+        public void UpdateIsReadStatus(bool status)
+        {
+            IsRead = status;
+        }
+
+        public void UpdateNotificationType(NotificationType type)
+        {
+            Type = type;
+        }
+
+        public void UpdateNotificationMessage(string message)
+        {
+            Message = message;
         }
     }
 }

@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { LoginRequest } from '../../../shared/requests/login-request';
 import { AuthService } from '../../auth.service';
 import { IUser } from '../../../shared/types/user';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',

@@ -1,7 +1,7 @@
 <div class="col-md-12 post-item">
     <div class="header d-flex justify-content-between align-items-center mb-2">
         <div class="section-1 d-flex align-items-center gap-3">
-            <app-story-bubble-item pictureUrl="data:image/png;base64,{{post.poster.pictureUrl}}" width="40"></app-story-bubble-item>
+            <app-story-bubble-item userId="{{post.poster.id}}" pictureUrl="data:image/png;base64,{{post.poster.pictureUrl}}" width="40"></app-story-bubble-item>
             <p class="m-0"><strong routerLink="/profile/{{post.poster.id}}" class="cursor-pointer">{{post.poster.userName}}</strong> &#x2022; {{timeStamp}}</p>
         </div>
         <div class="section-2 cursor-pointer">

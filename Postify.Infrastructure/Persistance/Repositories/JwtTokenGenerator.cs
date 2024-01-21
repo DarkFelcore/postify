@@ -1,11 +1,14 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 using Postify.Application.Common.Interfaces;
+using Postify.Domain.Aggregates;
 using Postify.Domain.Entities;
 using Postify.Infrastructure.Authentication;
 
@@ -22,7 +25,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateJWTToken(User user)
         {
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(
@@ -43,12 +46,21 @@ namespace Postify.Infrastructure.Persistance.Repositories
             var securityToken = new JwtSecurityToken(
                 issuer: _jwtSettings.Issuer,
                 audience: _jwtSettings.Audience,
-                expires: _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
+                expires: _dateTimeProvider.UtcNow.AddDays(1),
                 claims: claims,
                 signingCredentials: signingCredentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            return new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Expired = DateTime.Now.AddDays(7)
+            };
         }
     }
 }

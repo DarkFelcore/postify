@@ -20,6 +20,16 @@ namespace Postify.Domain.Errors
                 code: "Auth.DuplicateEmail",
                 description: "The specified email is already in use."
             );
+
+            public static Error InvalidRefreshToken => Error.Unauthorized(
+                code: "Auth.InvalidRefreshToken",
+                description: "The refresh token is invalid."
+            );
+
+            public static Error ExpiredRefreshToken => Error.Unauthorized(
+                code: "Auth.ExpiredRefreshToken",
+                description: "The refresh token has expired."
+            );
         }
     }
 }

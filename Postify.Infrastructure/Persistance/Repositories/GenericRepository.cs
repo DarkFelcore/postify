@@ -31,7 +31,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
             return true;
         }
 
-        public async Task<T?> GetByIdAsync(Guid id)
+        public async virtual Task<T?> GetByIdAsync(Guid id)
         {
             return await DbSet.FindAsync(id);
         }

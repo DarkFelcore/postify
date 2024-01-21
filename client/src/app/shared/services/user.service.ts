@@ -3,8 +3,8 @@ import { EventEmitter, Injectable, inject, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProfile } from '../types/profile';
 import { environment } from '../../../environments/environment.development';
-import { IGetUserFriendShipRequest } from '../types/requests/get-user-friendship-request';
-import { IFollowUserRequest, IFriendShip, IFriendShipStatus, IUserToUnfollow } from '../types/user';
+import { IAcceptFollowRequest, IFollowUserRequest, IGetUserFriendShipRequest, IRejectFollowRequest } from '../types/requests/requests';
+import { IFriendShip, IFriendShipStatus, IUserToUnfollow } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ export class UserService {
 
   private readonly http : HttpClient = inject(HttpClient);
 
-  friendshipStatusChangedEmitter: EventEmitter<void> = new EventEmitter<void>; 
+  friendshipStatusChangedEmitter: EventEmitter<void> = new EventEmitter<void>;
+  followRequestDesicionEmitter: EventEmitter<void> = new EventEmitter<void>;
 
   userToUnfollow = signal<IUserToUnfollow>({
     id: '',
@@ -43,6 +44,18 @@ export class UserService {
 
   followUser(request: IFollowUserRequest): Observable<boolean> {
     return this.http.post<boolean>(environment.baseUrl + 'users/follow', request);
+  }
+
+  acceptFollowRequest(request: IAcceptFollowRequest): Observable<boolean> {
+    return this.http.post<boolean>(environment.baseUrl + 'users/follow/accepted', request);
+  }
+
+  rejectFollowRequest(request: IRejectFollowRequest): Observable<boolean> {
+    return this.http.post<boolean>(environment.baseUrl + 'users/follow/rejected', request);
+  }
+
+  followRequestDecision(): void {
+    this.followRequestDesicionEmitter.emit();
   }
 
   friendshipChanged(): void {

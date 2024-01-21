@@ -1,23 +1,42 @@
 .modal-dialog {
-    max-width: 24rem;
-    padding-bottom: 16rem;
+  min-width: 20rem;
+  max-width: max-content;
+  padding-bottom: 16rem;
 
-    .header {
-        border-bottom: 1px solid rgb(54, 54, 54);
-        p {
-            width: 100%;
-            font-weight: bold;
-        }
+  .header {
+    border-bottom: 1px solid rgb(54, 54, 54);
+    p {
+      width: 100%;
+      font-weight: bold;
     }
-    .body {
-        .mark-as-read {
-            color: rgb(0, 149, 246);
-            font-size: 0.8rem;
-            transition: all 0.2s ease-in-out;
+  }
+  .body {
+    padding: 1rem;
 
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+    .date-group-title {
+      color: rgb(165, 165, 165);
     }
+
+    .mark-as-read {
+      color: rgb(119, 119, 119);
+      user-select: none;
+      font-size: 0.8rem;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      color: rgb(0, 149, 246);
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .no-notifications-container {
+      min-height: 8rem;
+      .no-notifications-bell {
+        color: #ffffff;
+        border: 3px solid #ffffff;
+        border-radius: 50%;
+        padding: 1rem;
+      }
+    }
+  }
 }
