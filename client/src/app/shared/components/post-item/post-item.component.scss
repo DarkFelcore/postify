@@ -23,6 +23,11 @@
     i {
       font-size: 1.3rem;
     }
+    .heart {
+      &.active {
+        color: red;
+      }
+    }
     .comment {
       transform: rotateY(3.142rad);
     }

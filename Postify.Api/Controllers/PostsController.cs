@@ -4,7 +4,9 @@ using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Postify.Api.Extensions;
 using Postify.Application.Posts.GetAll;
+using Postify.Application.Posts.Like;
 using Postify.Contracts.Posts;
 
 namespace Postify.Api.Controllers
@@ -31,6 +33,20 @@ namespace Postify.Api.Controllers
 
             return result.Match(
                 result => Ok(mappedPosts),
+                Problem
+            );
+        }
+
+        [HttpPost("like/{postId:guid}")]
+        public async Task<IActionResult> LikePostAsync([FromRoute] Guid postId) 
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = new LikePostCommand(postId, email);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                _ => NoContent(),
                 Problem
             );
         }

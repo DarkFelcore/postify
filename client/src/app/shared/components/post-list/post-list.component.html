@@ -2,7 +2,7 @@
     @for (post of posts(); track $index) {
         <div class="post-item-container">
             @defer {
-                <app-post-item [post]="post"></app-post-item>
+                <app-post-item [currentUser]="currentUser" [post]="post"></app-post-item>
             }
         </div>
     }
