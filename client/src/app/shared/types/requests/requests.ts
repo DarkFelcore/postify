@@ -15,7 +15,6 @@ export interface IRejectFollowRequest {
   followerId: string;
 }
 
-
 export interface IRefreshTokenRequest {
   accessToken: string;
   refreshToken: string;

@@ -1,4 +1,5 @@
 export interface IPostOverview {
+  id: string;
   description: string;
   image: string;
   createdAt: string;

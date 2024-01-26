@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import moment from 'moment';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { IPostOverview, IUserPoster } from '../../types/post';
 import { StoryBubbleItemComponent } from '../story-bubble-item/story-bubble-item.component';
-import moment from 'moment';
 import { RouterModule } from '@angular/router';
 import { IUser } from '../../types/user';
+import { PostService } from '../../services/post.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-post-item',
@@ -23,6 +25,8 @@ export class PostItemComponent implements OnInit {
   hasOpenedDescription: boolean = false;
   totalComments!: number;
   isPostLiked: boolean = false;
+
+  private readonly postService: PostService = inject(PostService);
 
   ngOnInit(): void {
     this.timeStamp = moment(this.post.createdAt).fromNow();
@@ -67,5 +71,16 @@ export class PostItemComponent implements OnInit {
 
   truncateDescription(): string {
     return this.post.description.substring(0, 32);
+  }
+
+  onLikePost(isDoubleClicked: boolean = false): void {
+    if (this.isPostLiked && isDoubleClicked) {
+      return;
+    }
+    this.isPostLiked = !this.isPostLiked;
+    this.postService.likePostAsync(this.post?.id).subscribe({
+      next: (status: boolean) => {},
+      error: (err: HttpErrorResponse) => console.log(err),
+    });
   }
 }

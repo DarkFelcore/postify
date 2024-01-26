@@ -5,14 +5,19 @@ import { IPostOverview } from '../types/post';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
-
   http: HttpClient = inject(HttpClient);
 
   getAllPostsAsync(): Observable<IPostOverview[]> {
     return this.http.get<IPostOverview[]>(environment.baseUrl + 'posts');
   }
-  
+
+  likePostAsync(postId: string): Observable<boolean> {
+    return this.http.post<boolean>(
+      environment.baseUrl + 'posts/like/' + postId,
+      null
+    );
+  }
 }

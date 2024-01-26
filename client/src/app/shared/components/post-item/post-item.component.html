@@ -21,6 +21,7 @@
   </div>
   <div class="img-container">
     <img
+      (dblclick)="onLikePost(true)"
       loading="lazy"
       src="data:image/png;base64,{{ post.image }}"
       alt="test"
@@ -31,9 +32,12 @@
   >
     <div class="d-flex align-items-center gap-4">
       @if (isPostLiked) {
-      <i class="fa-solid fa-heart cursor-pointer heart active"></i>
+      <i
+        (click)="onLikePost()"
+        class="fa-solid fa-heart cursor-pointer heart active"
+      ></i>
       } @else {
-      <i class="fa-regular fa-heart cursor-pointer"></i>
+      <i (click)="onLikePost()" class="fa-regular fa-heart cursor-pointer"></i>
       }
       <i class="fa-regular fa-comment comment cursor-pointer"></i>
       <i class="fa-regular fa-paper-plane cursor-pointer"></i>
