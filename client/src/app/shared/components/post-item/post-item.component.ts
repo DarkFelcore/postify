@@ -22,9 +22,11 @@ export class PostItemComponent implements OnInit {
 
   timeStamp!: string;
   description!: string;
+
   hasOpenedDescription: boolean = false;
   totalComments!: number;
   isPostLiked: boolean = false;
+  hasActivePostComment: boolean = false;
 
   private readonly postService: PostService = inject(PostService);
 
@@ -82,5 +84,11 @@ export class PostItemComponent implements OnInit {
       next: (status: boolean) => {},
       error: (err: HttpErrorResponse) => console.log(err),
     });
+  }
+
+  onPostCommentInputChange(event: Event): void {
+    let value = (event.target as HTMLInputElement).value;
+    // set to true if the value is not empty, otherwise false
+    this.hasActivePostComment = !!value;
   }
 }

@@ -44,18 +44,28 @@
   }
 
   .total-comments-container {
-    .total-comments-label, .add-comment-input {
+    .total-comments-label,
+    .add-comment-input {
       color: #6b6b6b;
     }
-    .add-comment-input {
-      width: 100%;
-      background-color: transparent;
-      border: none;
-      margin: 0;
-      padding: 0;
+    .add-comment-input-container {
+      position: relative;
+      .add-comment-input {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        margin: 0;
+        padding: 0;
 
-      &:focus {
-        outline: none;
+        &:focus {
+          outline: none;
+        }
+      }
+      .comment-label {
+        font-weight: bold;
+        position: absolute;
+        color: #0095f6;
+        right: 0;
       }
     }
   }

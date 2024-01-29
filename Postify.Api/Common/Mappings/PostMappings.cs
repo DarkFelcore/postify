@@ -1,5 +1,6 @@
 using Mapster;
 
+using Postify.Application.Posts.Comments;
 using Postify.Application.Posts.Common;
 using Postify.Contracts.Posts;
 using Postify.Contracts.Profile;
@@ -18,6 +19,10 @@ namespace Postify.Api.Common.Mappings
                 .Map(dest => dest.Image, src => Convert.ToBase64String(src.Image))
                 .Map(dest => dest, src => src);
 
+            config.NewConfig<(CommentPostRequest Request, string Email, Guid PostId), CommentPostCommand>()
+                .Map(dest => dest.PostId, src => src.PostId)
+                .Map(dest => dest.Email, src => src.Email)
+                .Map(dest => dest, src => src.Request);
         }
     }
 }
