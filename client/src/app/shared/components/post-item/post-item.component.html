@@ -1,3 +1,4 @@
+@if (post) {
 <div class="col-md-12 post-item">
   <div class="header d-flex justify-content-between align-items-center mb-2">
     <div class="section-1 d-flex align-items-center gap-3">
@@ -21,6 +22,7 @@
   </div>
   <div class="img-container">
     <img
+      draggable="false"
       (dblclick)="onLikePost(true)"
       loading="lazy"
       src="data:image/png;base64,{{ post.image }}"
@@ -39,7 +41,11 @@
       } @else {
       <i (click)="onLikePost()" class="fa-regular fa-heart cursor-pointer"></i>
       }
-      <i class="fa-regular fa-comment comment cursor-pointer"></i>
+      <i
+        class="fa-regular fa-comment comment cursor-pointer"
+        data-toggle="modal"
+        [attr.data-target]="postModalId"
+      ></i>
       <i class="fa-regular fa-paper-plane cursor-pointer"></i>
     </div>
     <div>
@@ -84,20 +90,38 @@
   </div>
   @if (post.commentsCount > 0) {
   <div class="total-comments-container">
-    <p class="total-comments-label cursor-pointer">
+    <p
+      class="total-comments-label cursor-pointer"
+      data-toggle="modal"
+      [attr.data-target]="postModalId"
+    >
       View all {{ post.commentsCount }} comments
     </p>
     <div class="add-comment-input-container">
       <input
+        #commentInput
+        (keyup.enter)="onPlaceComment()"
         (input)="onPostCommentInputChange($event)"
         class="add-comment-input"
         type="text"
         placeholder="Add a comment..."
       />
       @if (hasActivePostComment) {
-      <span class="comment-label cursor-pointer">Plaatsen</span>
+      <span class="comment-label cursor-pointer" (click)="onPlaceComment()"
+        >Plaatsen</span
+      >
       }
     </div>
   </div>
   }
 </div>
+<app-post-details
+  [isPostLiked]="isPostLiked"
+  [childCommentsMap]="childCommentsMap"
+  [postModalId]="postModalId"
+  [postDetails]="postDetails"
+  [postLikes]="post.postLikes"
+  [firstPostLikeUser]="firstPostLikeUser"
+  (postLikeEmitter)="onReceiveLikePost($event)"
+></app-post-details>
+}

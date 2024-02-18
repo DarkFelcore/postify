@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { IPostOverview } from '../../types/post';
 import { PostService } from '../../services/post.service';
-import { map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { PostItemComponent } from '../post-item/post-item.component';
@@ -16,7 +16,7 @@ import { IUser } from '../../types/user';
   styleUrl: './post-list.component.scss',
 })
 export class PostListComponent implements OnInit {
-  currentUser!: IUser;
+  currentUser$!: Observable<IUser | null>;
 
   // signals
   posts = signal<IPostOverview[]>([]);
@@ -26,19 +26,15 @@ export class PostListComponent implements OnInit {
   authService: AuthService = inject(AuthService);
 
   ngOnInit(): void {
+    this.currentUser$ = this.authService.currentUser$;
     this.loadPosts();
-    this.loadCurrentUser();
+    this.listenLoadPosts();
   }
 
-  loadCurrentUser(): void {
-    const token: string = localStorage.getItem('token') as string;
-    this.authService.loadCurrentUser(token).subscribe({
-      next: (user: IUser | null) => {
-        if (user) {
-          this.currentUser = user;
-        }
-      },
-      error: (err: HttpErrorResponse) => {},
+  listenLoadPosts(): void {
+    this.postService.loadPostsEmitter.subscribe({
+      next: () => this.loadPosts(),
+      error: (err: any) => console.log(err),
     });
   }
 

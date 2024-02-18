@@ -1,0 +1,25 @@
+.wrapper,
+.child-comments-container {
+  font-size: 0.9rem;
+}
+.wrapper {
+  margin-bottom: 1rem;
+  .light-gray {
+    color: lightgrey;
+  }
+  .fa-heart {
+    font-size: 0.7rem;
+  }
+}
+.child-comments-container {
+  margin-left: 3.6rem;
+  .show-comments-btn {
+    color: white;
+    border: none;
+    background: transparent;
+    .desgin-separator {
+      width: 1.5rem;
+      border-bottom: 1px solid white;
+    }
+  }
+}

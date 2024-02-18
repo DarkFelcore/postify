@@ -10,6 +10,14 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
+  if (req.method === 'POST' && req.url.includes('comment')) {
+    return next(req);
+  }
+
+  if (req.method === 'GET' && req.url.includes('posts/')) {
+    return next(req);
+  }
+
   spinnerService.busy();
 
   return next(req).pipe(finalize(() => spinnerService.idle()));

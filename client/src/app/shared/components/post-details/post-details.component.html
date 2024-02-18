@@ -1,0 +1,117 @@
+@if (postDetails) {
+<div class="modal fade" [id]="postModalId" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content d-flex flex-row">
+      <div class="col-md-7 post-image-container d-flex align-items-center">
+        <img
+          (dblclick)="onLikePost(true)"
+          draggable="false"
+          class="post-img"
+          src="data:image/png;base64,{{ postDetails.image }}"
+          alt="post-img"
+        />
+      </div>
+      <div class="col-md-5 post-info-container position-relative">
+        <app-post-details-info-header
+          [poster]="postDetails.poster"
+        ></app-post-details-info-header>
+        <div class="comments-container col-md-12">
+          @if (postDetails.description) {
+          <app-post-details-poster-description
+            [postDetails]="postDetails"
+          ></app-post-details-poster-description>
+          } @for (comment of postDetails.comments; track $index) {
+          @if(comment.parentCommentId === null) {
+          <app-post-details-comment-item
+            [childCommentsMap]="childCommentsMap"
+            [comment]="comment"
+            [postDetails]="postDetails"
+          ></app-post-details-comment-item>
+          } }
+        </div>
+        <div class="comment-action-container col-md-12 position-absolute">
+          <div class="d-flex flex-column gap-2 border-verticaly p-3">
+            <div
+              class="action-container d-flex justify-content-between align-items-center"
+            >
+              <div class="d-flex align-items-center gap-4">
+                @if (isPostLiked) {
+                <i
+                  (click)="onLikePost()"
+                  class="fa-solid fa-heart cursor-pointer heart active"
+                ></i>
+                } @else {
+                <i
+                  (click)="onLikePost()"
+                  class="fa-regular fa-heart cursor-pointer"
+                ></i>
+                }
+                <i class="fa-regular fa-comment comment cursor-pointer" (click)="onCommentIconClicked()"></i>
+                <i class="fa-regular fa-paper-plane cursor-pointer"></i>
+              </div>
+              <div>
+                <i class="fa-regular fa-bookmark cursor-pointer"></i>
+              </div>
+            </div>
+            <div class="post-likes-container">
+              <div class="col-md-12">
+                @if (postLikes.length > 0) { @if (postLikes.length === 1) {
+                <p>
+                  <strong
+                    class="cursor-pointer"
+                    routerLink="/profile/{{ firstPostLikeUser.id }}"
+                    >{{ firstPostLikeUser.userName }}</strong
+                  >
+                  liked this post.
+                </p>
+                } @else {
+                <p>
+                  <strong
+                    class="cursor-pointer"
+                    routerLink="/profile/{{ firstPostLikeUser.id }}"
+                    >{{ firstPostLikeUser.userName }}</strong
+                  >
+                  and <strong class="cursor-pointer">others</strong> liked this
+                  post.
+                </p>
+                } }
+              </div>
+              <div class="col-md-12 light-grey">
+                {{ timestamp }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-12 comment-post-container px-3 py-2 gap-2 d-flex align-items-center justify-content-between"
+          >
+            <div class="col-md-10 d-flex align-items-center gap-3">
+              <i class="fa-regular fa-face-smile cursor-pointer"></i>
+              <input
+                (input)="onCommentInputChange($event)"
+                #addCommentInput
+                type="text"
+                class="w-100"
+                placeholder="Add a comment.."
+              />
+            </div>
+            <div class="col-md-2">
+              <button
+                (click)="onCommentPostButtonClicked()"
+                [disabled]="isCommentInputEmpty"
+                class="btn btn-primary"
+              >
+                Plaatsen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <i
+    class="fa-solid fa-xmark close-modal-btn cursor-pointer"
+    data-dismiss="modal"
+    aria-label="Close"
+  ></i>
+</div>
+}

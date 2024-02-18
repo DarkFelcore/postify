@@ -8,7 +8,6 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
   styleUrl: './phone-preview-slideshow.component.scss'
 })
 export class PhonePreviewSlideshowComponent implements OnInit, OnDestroy {
-  @ViewChild('phoneImg') img!: ElementRef;
   imgIndex: number = 2;
   interval: any;
   timeout: any;

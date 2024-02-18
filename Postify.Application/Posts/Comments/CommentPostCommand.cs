@@ -2,6 +2,8 @@ using ErrorOr;
 
 using MediatR;
 
+using Postify.Domain.Entities;
+
 namespace Postify.Application.Posts.Comments
 {
     public record CommentPostCommand(
@@ -9,5 +11,5 @@ namespace Postify.Application.Posts.Comments
         string Email, 
         string? ParentCommentId,
         string Description
-    ): IRequest<ErrorOr<bool>>;
+    ): IRequest<ErrorOr<Comment>>;
 }

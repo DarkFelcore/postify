@@ -1,0 +1,15 @@
+@if (poster) {
+<div class="wrapper col-md-12 d-flex align-items-center">
+  <div class="section-1 col-md-11 d-flex align-items-center gap-3">
+    <app-story-bubble-item
+      [userId]="poster.id"
+      pictureUrl="data:image/png;base64,{{ poster.pictureUrl }}"
+      width="35"
+    ></app-story-bubble-item>
+    <p class="username cursor-pointer"><strong>{{ poster.userName }}</strong></p>
+  </div>
+  <div class="section-2 col-md-1 text-end cursor-pointer">
+    <i class="fa-solid fa-ellipsis"></i>
+  </div>
+</div>
+}

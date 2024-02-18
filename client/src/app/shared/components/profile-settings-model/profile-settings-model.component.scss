@@ -1,0 +1,16 @@
+.modal-dialog {
+  max-width: 24rem;
+  padding-bottom: 16rem;
+  .modal-body {
+    padding: 0;
+    .setting-item {
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 0.8rem 0;
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid rgb(54, 54, 54); /* Replace #000 with your desired border color */
+      }
+    }
+  }
+}

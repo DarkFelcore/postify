@@ -1,0 +1,20 @@
+@if (postDetails) {
+<div class="wrapper d-flex align-items-flex-start gap-3">
+  <app-story-bubble-item
+    pictureUrl="data:image/png;base64,{{ postDetails.poster.pictureUrl }}"
+    width="35"
+    [userId]="postDetails.poster.id"
+  ></app-story-bubble-item>
+  <div class="col-md-11 d-flex flex-column gap-1 justify-content-center">
+    <p class="text-wrap">
+      <strong
+        class="cursor-pointer"
+        routerLink="/profile/{{ postDetails.poster.id }}"
+        >{{ postDetails.poster.userName | lowercase }}</strong
+      >
+      {{ postDetails.description }}
+    </p>
+    <small class="light-gray">{{ timeStamp }}</small>
+  </div>
+</div>
+}

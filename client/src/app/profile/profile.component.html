@@ -7,7 +7,7 @@
             <div class="main-container col-md-10">
                 <div class="user-container d-flex col-md-12">
                     <div class="profile-img-container text-end col-md-3">
-                        <img class="profile-img" src="data:image/png;base64,{{profile.pictureUrl}}" alt="profile-picture">
+                        <img draggable="false" class="profile-img" src="data:image/png;base64,{{profile.pictureUrl}}" alt="profile-picture">
                     </div>
                     <div class="user-info-container col-md-9">
                         <div class="section-1 d-flex align-items-center gap-3">
@@ -19,7 +19,7 @@
                                 @if(isOwnProfile())
                                 {
                                     <button class="btn profile-btn gray-btn">Edit profile</button>
-                                    <i class="fa-solid fa-gear gear cursor-pointer"></i>
+                                    <i data-toggle="modal" data-target="#profile-settings-modal" class="fa-solid fa-gear gear cursor-pointer"></i>
                                 }
                             </div>
                         </div>
@@ -39,5 +39,6 @@
             </div>
         </div>
         <app-friendship-model [friendShipKind]="friendShipKind" [userId]="currentUser?.id" [friendships]="friendships"></app-friendship-model>
+        <app-profile-settings-model></app-profile-settings-model>
     </div>
 }

@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Postify.Api.Extensions;
 using Postify.Application.Posts.Comments;
 using Postify.Application.Posts.GetAll;
+using Postify.Application.Posts.GetDetails;
 using Postify.Application.Posts.Like;
+using Postify.Contracts.Comments;
 using Postify.Contracts.Posts;
 
 namespace Postify.Api.Controllers
@@ -38,6 +40,22 @@ namespace Postify.Api.Controllers
             );
         }
 
+        [HttpGet("{postId:guid}")]
+        public async Task<IActionResult> GetPostDetailsAsync([FromRoute] Guid postId)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var query = new GetPostDetailsQuery(postId, email);
+            var result = await _mediator.Send(query);
+
+            var mappedPostDetails = _mapper.Map<PostDetailsResponse>(result.Value);
+
+            return result.Match(
+                result => Ok(mappedPostDetails),
+                Problem
+            );
+        }
+
         [HttpPost("like/{postId:guid}")]
         public async Task<IActionResult> LikePostAsync([FromRoute] Guid postId) 
         {
@@ -60,8 +78,10 @@ namespace Postify.Api.Controllers
             var command = _mapper.Map<CommentPostCommand>((request, email, postId));
             var result = await _mediator.Send(command);
 
+            var mappedComment = _mapper.Map<CommentResponse>(result.Value);
+
             return result.Match(
-                _ => NoContent(),
+                _ => Ok(mappedComment),
                 Problem
             );
         }

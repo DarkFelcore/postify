@@ -1,0 +1,23 @@
+<div class="modal fade" id="profile-settings-modal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-dark">
+      <div class="modal-body">
+        <div
+          class="setting-item cursor-pointer"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="authService.logout()"
+        >
+          Log-out
+        </div>
+        <div
+          class="setting-item cursor-pointer"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          Cancel
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

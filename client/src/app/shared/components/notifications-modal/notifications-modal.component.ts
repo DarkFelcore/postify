@@ -56,8 +56,8 @@ export class NotificationsModalComponent implements OnInit {
   hasUnreadNotifications = computed<boolean>(() => {
     return (
       this.userNotifications().filter(
-        (notification: INotification) => !!notification.isRead
-      ).length === 0
+        (notification: INotification) => !notification.isRead
+      ).length > 0
     );
   });
 

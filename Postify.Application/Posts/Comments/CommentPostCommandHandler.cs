@@ -8,7 +8,7 @@ using Postify.Domain.Errors;
 
 namespace Postify.Application.Posts.Comments
 {
-    public class CommentPostCommandHandler : IRequestHandler<CommentPostCommand, ErrorOr<bool>>
+    public class CommentPostCommandHandler : IRequestHandler<CommentPostCommand, ErrorOr<Comment>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,7 +17,7 @@ namespace Postify.Application.Posts.Comments
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ErrorOr<bool>> Handle(CommentPostCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Comment>> Handle(CommentPostCommand command, CancellationToken cancellationToken)
         {
             var parentCommentId = command.ParentCommentId;
             var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(command.Email);
@@ -41,7 +41,7 @@ namespace Postify.Application.Posts.Comments
             await _unitOfWork.CommentRepository.AddAsync(newComment);
             await _unitOfWork.CompleteAsync();
 
-            return true;
+            return newComment;
         }
     }
 }

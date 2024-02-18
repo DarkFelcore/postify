@@ -19,3 +19,8 @@ export interface IRefreshTokenRequest {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface ICommentPostRequest {
+  description: string;
+  parentCommentId?: string;
+}

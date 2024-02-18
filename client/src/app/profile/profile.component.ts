@@ -11,6 +11,7 @@ import { IGetUserFriendShipRequest } from '../shared/types/requests/requests';
 import { FriendshipStatusButtonComponent } from '../shared/components/friendship-status-button/friendship-status-button.component';
 import { FriendshipModelComponent } from '../shared/components/friendship-model/friendship-model.component';
 import { FriendShipStatusEnum } from '../shared/types/enums/enums';
+import { ProfileSettingsModelComponent } from '../shared/components/profile-settings-model/profile-settings-model.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +21,7 @@ import { FriendShipStatusEnum } from '../shared/types/enums/enums';
     ProfileTabListComponent,
     FriendshipStatusButtonComponent,
     FriendshipModelComponent,
+    ProfileSettingsModelComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',

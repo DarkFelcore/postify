@@ -1,0 +1,97 @@
+.modal-dialog {
+  margin: 0;
+  max-width: 180rem;
+  padding: 0 17rem;
+
+  .modal-content {
+    border-radius: 0;
+    border: none;
+    background-color: black !important;
+    height: 95dvh;
+    margin-top: 1.5rem;
+
+    .post-image-container {
+      img {
+        width: 100%;
+        max-height: max-content;
+      }
+    }
+    .post-info-container {
+      border-left: 1px solid #262626;
+      .comments-container {
+        padding: 1rem 1.5rem;
+        max-height: 65.4vh;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      .comment-action-container {
+        bottom: 0;
+        .action-container {
+          i {
+            font-size: 1.3rem;
+          }
+          .heart {
+            &.active {
+              transition: all 0.2s ease-in-out;
+              color: red;
+            }
+          }
+          .comment {
+            transform: rotateY(3.142rad);
+          }
+        }
+        .post-likes-container {
+          font-size: 0.9rem;
+          .light-grey {
+            color: #6b6b6b;
+          }
+        }
+        .comment-post-container {
+          font-size: 0.9rem;
+          input {
+            background: transparent;
+            border: none;
+            margin: 0;
+            padding: 0;
+            color: white;
+
+            &:focus {
+              outline: none;
+            }
+          }
+          button {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #0095f6;
+            background: transparent;
+            border: none;
+
+            &:disabled {
+              color: #546778;
+            }
+          }
+        }
+        .border-verticaly {
+          border-top: 1px solid #262626;
+          border-bottom: 1px solid #262626;
+        }
+      }
+    }
+  }
+}
+.close-modal-btn {
+  position: absolute;
+  padding: 1.5rem;
+  font-size: 1.4rem;
+  right: 0;
+  top: 0;
+}
+
+@media only screen and (min-width: 1800px) {
+  .comments-container {
+    max-height: 69.4vh !important;
+  }
+}

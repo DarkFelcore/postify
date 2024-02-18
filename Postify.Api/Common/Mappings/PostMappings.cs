@@ -2,6 +2,7 @@ using Mapster;
 
 using Postify.Application.Posts.Comments;
 using Postify.Application.Posts.Common;
+using Postify.Contracts.Comments;
 using Postify.Contracts.Posts;
 using Postify.Contracts.Profile;
 using Postify.Domain.Entities;
@@ -23,6 +24,9 @@ namespace Postify.Api.Common.Mappings
                 .Map(dest => dest.PostId, src => src.PostId)
                 .Map(dest => dest.Email, src => src.Email)
                 .Map(dest => dest, src => src.Request);
+
+            config.NewConfig<PostDetailsResult, PostDetailsResponse>()
+                .Map(dest => dest, src => src);
         }
     }
 }

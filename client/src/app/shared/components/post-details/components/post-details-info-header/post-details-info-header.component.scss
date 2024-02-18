@@ -1,0 +1,13 @@
+.wrapper {
+  font-size: 0.9rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #262626;
+  .section-1 {
+    .username {
+        transition: all 0.1s ease-in-out;
+        &:hover {
+            color: lightgrey;
+        }
+    }
+  }
+}

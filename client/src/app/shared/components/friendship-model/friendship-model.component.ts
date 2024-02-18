@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { IFriendShip } from '../../types/user';
 import { FriendshipModelItemComponent } from './components/friendship-model-item/friendship-model-item.component';
 
@@ -7,10 +7,15 @@ import { FriendshipModelItemComponent } from './components/friendship-model-item
   standalone: true,
   imports: [FriendshipModelItemComponent],
   templateUrl: './friendship-model.component.html',
-  styleUrl: './friendship-model.component.scss'
+  styleUrl: './friendship-model.component.scss',
 })
-export class FriendshipModelComponent {
+export class FriendshipModelComponent implements OnDestroy {
   @Input() friendships!: IFriendShip[];
   @Input() userId!: string | undefined;
   @Input() friendShipKind!: 'Followers' | 'Followings';
+
+  ngOnDestroy(): void {
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) modalBackdrop.remove();
+  }
 }

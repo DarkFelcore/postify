@@ -20,7 +20,6 @@ namespace Postify.Infrastructure.Persistance.Repositories
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
         }
-
         public async Task<List<Post>> AllByUserIdAsync(Guid userId)
         {
             return await _context.Posts
@@ -28,6 +27,15 @@ namespace Postify.Infrastructure.Persistance.Repositories
                 .Where(x => x.UserId == userId)
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync();
+        }
+        public override async Task<Post?> GetByIdAsync(Guid id)
+        {
+            return await _context.Posts
+                .Include(x => x.User)
+                .Include(x => x.Comments)!
+                    .ThenInclude(x => x.User)
+                    .ThenInclude(x => x.CommentLikes)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

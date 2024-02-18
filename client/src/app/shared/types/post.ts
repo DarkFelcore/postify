@@ -8,6 +8,30 @@ export interface IPostOverview {
   poster: IUserPoster;
 }
 
+export interface IPostDetails {
+  id: string;
+  description: string;
+  image: string;
+  createdAt: string;
+  comments: IComment[];
+  poster: IUserPoster;
+  postLiked: boolean;
+}
+
+export interface IComment {
+  id: string;
+  parentCommentId?: string;
+  description: string;
+  createdAt: string;
+  commentLikes: ICommentLike[];
+  user: IUserPoster;
+}
+
+export interface ICommentLike {
+  userId: string;
+  commentId: string;
+}
+
 export interface IUserPoster {
   id: string;
   pictureUrl: string;
