@@ -3,7 +3,10 @@ import { EventEmitter, Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IComment, IPostDetails, IPostOverview } from '../types/post';
 import { environment } from '../../../environments/environment.development';
-import { ICommentPostRequest } from '../types/requests/requests';
+import {
+  ICommentPostRequest,
+  ILikePostCommentRequest,
+} from '../types/requests/requests';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +37,13 @@ export class PostService {
   ): Observable<IComment> {
     return this.http.post<IComment>(
       environment.baseUrl + 'posts/comment/' + postId,
+      request
+    );
+  }
+
+  likePostCommentAsync(request: ILikePostCommentRequest): Observable<boolean> {
+    return this.http.post<boolean>(
+      environment.baseUrl + 'posts/like/comment',
       request
     );
   }

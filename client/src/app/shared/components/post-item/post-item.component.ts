@@ -168,7 +168,10 @@ export class PostItemComponent implements OnInit {
           finalize(() => (this.hasActivePostComment = false))
         )
         .subscribe({
-          next: (_: IComment) => this.postService.loadPosts(),
+          next: (comment: IComment) => {
+            this.postDetails?.comments.push(comment);
+            this.postService.loadPosts();
+          },
           error: (err: HttpErrorResponse) => {
             console.log(err);
           },

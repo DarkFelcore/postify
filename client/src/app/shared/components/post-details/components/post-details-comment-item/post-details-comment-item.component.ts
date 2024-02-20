@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, OnInit, signal } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, inject, signal } from '@angular/core';
 import { IComment, IPostDetails } from '../../../../types/post';
 import { CommonModule } from '@angular/common';
 import { StoryBubbleItemComponent } from '../../../story-bubble-item/story-bubble-item.component';
 import moment from 'moment';
 import { RouterModule } from '@angular/router';
+import { PostService } from '../../../../services/post.service';
 
 @Component({
   selector: 'app-post-details-comment-item',
@@ -23,6 +24,8 @@ export class PostDetailsCommentItemComponent implements OnInit {
   isChildSectionOpened: boolean = false;
   collapsedChildCommentId!: string;
 
+  postService: PostService = inject(PostService);
+
   ngOnInit(): void {
     this.timeStamp = moment(this.comment.createdAt).fromNow();
     this.likeCount = this.comment.commentLikes?.length;
@@ -31,5 +34,9 @@ export class PostDetailsCommentItemComponent implements OnInit {
 
   toggleChildComments(): void {
     this.isChildSectionOpened = !this.isChildSectionOpened;
+  }
+
+  onLikePostCommentClicked(): void {
+    
   }
 }

@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 using Postify.Api.Extensions;
 using Postify.Application.Posts.Comments;
+using Postify.Application.Posts.Comments.Like;
 using Postify.Application.Posts.GetAll;
 using Postify.Application.Posts.GetDetails;
 using Postify.Application.Posts.Like;
+using Postify.Contracts.CommentLikes;
 using Postify.Contracts.Comments;
 using Postify.Contracts.Posts;
 
@@ -82,6 +84,20 @@ namespace Postify.Api.Controllers
 
             return result.Match(
                 _ => Ok(mappedComment),
+                Problem
+            );
+        }
+
+        [HttpPost("like/comment")]
+        public async Task<IActionResult> LikePostCommentAsync([FromBody] LikePostCommentRequest request)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = _mapper.Map<LikePostCommentCommand>((request, email));
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                _ => NoContent(),
                 Problem
             );
         }

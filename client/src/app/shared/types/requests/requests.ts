@@ -24,3 +24,8 @@ export interface ICommentPostRequest {
   description: string;
   parentCommentId?: string;
 }
+
+export interface ILikePostCommentRequest {
+  commentId: string;
+  userId: string;
+}

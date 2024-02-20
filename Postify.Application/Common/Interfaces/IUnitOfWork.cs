@@ -11,5 +11,6 @@ namespace Postify.Application.Common.Interfaces
         INotificationRepository NotificationRepository { get; }
         IPostLikeRepository PostLikeRepository { get; }
         ICommentRepository CommentRepository { get; }
+        ICommentLikeRepository CommentLikeRepository { get; }
     }
 }

@@ -12,6 +12,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
         public INotificationRepository NotificationRepository { get; private set; }
         public IPostLikeRepository PostLikeRepository { get; private set; }
         public ICommentRepository CommentRepository { get; private set; }
+        public ICommentLikeRepository CommentLikeRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -24,6 +25,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
             NotificationRepository = new NotificationRepository(context);
             PostLikeRepository = new PostLikeRepository(context);
             CommentRepository = new CommentRepository(context);
+            CommentLikeRepository = new CommentLikeRepository(context);
         }
 
         public async Task CompleteAsync()
