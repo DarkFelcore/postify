@@ -41,6 +41,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   @Input() isPostLiked!: boolean;
   @Input() postLikes!: IUserPoster[];
   @Input() firstPostLikeUser!: IUserPoster;
+  @Input() currentUser!: IUser | null;
 
   @Output() postLikeEmitter: EventEmitter<boolean> =
     new EventEmitter<boolean>();

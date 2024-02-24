@@ -9,6 +9,10 @@
   }
   .fa-heart {
     font-size: 0.7rem;
+
+    &.active {
+      color: red;
+    }
   }
 }
 .child-comments-container {

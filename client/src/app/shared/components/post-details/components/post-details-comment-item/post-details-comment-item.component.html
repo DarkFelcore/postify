@@ -1,48 +1,63 @@
 @if (comment) {
-  <div class="wrapper d-flex align-items-flex-start gap-3">
-    <app-story-bubble-item
-      pictureUrl="data:image/png;base64,{{ comment.user.pictureUrl }}"
-      width="35"
-      [userId]="comment.user.id"
-    ></app-story-bubble-item>
-    <div class="d-flex align-items-center w-100">
-      <div class="col-md-11 d-flex flex-column gap-1 justify-content-center">
-        <p>
-          <strong
-            class="cursor-pointer"
-            routerLink="/profile/{{ comment.user.id }}"
-            >{{ comment.user.userName | lowercase }}</strong
-          >
-          {{ comment.description }}
-        </p>
-        <div class="d-flex align-items-center gap-2">
-          <small class="light-gray">{{ timeStamp }}</small>
-          @if (likeCount > 1) {
-          <small class="cursor-pointer">{{ likeCount }} likes</small>
-          } @else if(likeCount == 1) {
-          <small class="cursor-pointer">{{ likeCount }} like</small>
-          }
-          <small class="light-gray cursor-pointer">React</small>
-        </div>
-      </div>
-      <div class="col-md-1 text-end cursor-pointer" (click)="onLikePostCommentClicked()">
-        <i class="fa-regular fa-heart"></i>
+<div class="wrapper d-flex align-items-flex-start gap-3">
+  <app-story-bubble-item
+    pictureUrl="data:image/png;base64,{{ comment.user.pictureUrl }}"
+    width="35"
+    [userId]="comment.user.id"
+  ></app-story-bubble-item>
+  <div class="d-flex align-items-center w-100">
+    <div class="col-md-11 d-flex flex-column gap-1 justify-content-center">
+      <p>
+        <strong
+          class="cursor-pointer"
+          routerLink="/profile/{{ comment.user.id }}"
+          >{{ comment.user.userName | lowercase }}</strong
+        >
+        {{ comment.description }}
+      </p>
+      <div class="d-flex align-items-center gap-2">
+        <small class="light-gray">{{ timeStamp }}</small>
+        @if (likeCount > 1) {
+        <small class="cursor-pointer">{{ likeCount }} likes</small>
+        } @else if(likeCount == 1) {
+        <small class="cursor-pointer">{{ likeCount }} like</small>
+        }
+        <small class="light-gray cursor-pointer">React</small>
       </div>
     </div>
+    <div
+      class="col-md-1 text-end cursor-pointer"
+      (click)="onLikePostCommentClicked()"
+    >
+      @if (isCommentLikedByCurrentUser) {
+      <i class="fa-solid fa-heart cursor-pointer heart active"></i>
+      } @else {
+      <i class="fa-regular fa-heart"></i>
+      }
+    </div>
   </div>
-  <div class="child-comments-container">
-    @for (childComment of childCommentsMap; track $index) { 
-      @if (childComment[0] === comment.id) {
-        <button (click)="toggleChildComments()" data-toggle="collapse" [attr.data-target]="'#' + collapsedChildCommentId" class="show-comments-btn d-flex align-items-center gap-4 mb-3">
-          <div class="desgin-separator"></div>
-          {{!isChildSectionOpened ? 'Show' : 'Hide'}} all answers ({{ childComment[1].length }})
-        </button>
-        <div class="collapse" [id]="collapsedChildCommentId">
-          @for (item of childComment[1]; track $index) {
-            <app-post-details-comment-item [comment]="item"></app-post-details-comment-item>
-          }
-        </div>
-      } 
+</div>
+<div class="child-comments-container">
+  @for (childComment of childCommentsMap; track $index) { @if (childComment[0]
+  === comment.id) {
+  <button
+    (click)="toggleChildComments()"
+    data-toggle="collapse"
+    [attr.data-target]="'#' + collapsedChildCommentId"
+    class="show-comments-btn d-flex align-items-center gap-4 mb-3"
+  >
+    <div class="desgin-separator"></div>
+    {{ !isChildSectionOpened ? "Show" : "Hide" }} all answers ({{
+      childComment[1].length
+    }})
+  </button>
+  <div class="collapse" [id]="collapsedChildCommentId">
+    @for (item of childComment[1]; track $index) {
+    <app-post-details-comment-item
+      [comment]="item"
+    ></app-post-details-comment-item>
     }
   </div>
+  } }
+</div>
 }
