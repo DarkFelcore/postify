@@ -21,13 +21,14 @@ namespace Postify.Domain.Entities
         public List<PostLike>? PostLikes { get; private set; } = null!;
         public List<Follower>? Friendships { get; private set; } = null!;
         public List<Notification>? Notifications { get; private set; } = null!;
+        public List<Favorite>? Favorites { get; private set; } = null!;
 
         public User()
         {
 
         }
 
-        public User(Guid id, string firstName, string lastName, string userName, string email, string passwordHash, byte[]? pictureUrl = null, List<Comment>? comments = null, List<Post>? posts = null, List<CommentLike>? commentLikes = null, List<PostLike>? postLikes = null, List<Follower>? friendships = null, List<Notification>? notifications = null) : base(id)
+        public User(Guid id, string firstName, string lastName, string userName, string email, string passwordHash, byte[]? pictureUrl = null, List<Comment>? comments = null, List<Post>? posts = null, List<CommentLike>? commentLikes = null, List<PostLike>? postLikes = null, List<Follower>? friendships = null, List<Notification>? notifications = null, List<Favorite>? favorites = null) : base(id)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -41,6 +42,7 @@ namespace Postify.Domain.Entities
             PostLikes = postLikes;
             Friendships = friendships;
             Notifications = notifications;
+            Favorites = favorites;
         }
     }
 }

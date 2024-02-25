@@ -12,6 +12,7 @@ namespace Postify.Domain.Entities
         // Relationships
         public List<Comment>? Comments { get; private set; } = null!;
         public List<PostLike>? PostLikes { get; private set; } = null!;
+        public List<Favorite>? Favorites { get; private set; } = null!;
 
         public Guid UserId { get; private set; }
         public User User { get; set; } = null!;
@@ -20,7 +21,7 @@ namespace Postify.Domain.Entities
         {
         }
 
-        public Post(Guid id, string description, string link, byte[] image, Guid userId, List<Comment>? comments, List<PostLike>? postLikes) : base(id)
+        public Post(Guid id, string description, string link, byte[] image, Guid userId, List<Comment>? comments, List<PostLike>? postLikes, List<Favorite>? favorites = null) : base(id)
         {
             Description = description;
             Link = link;
@@ -28,6 +29,7 @@ namespace Postify.Domain.Entities
             UserId = userId;
             Comments = comments;
             PostLikes = postLikes;
+            Favorites = favorites;
         }
     }
 }
