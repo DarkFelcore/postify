@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 using Postify.Api.Extensions;
 using Postify.Application.Posts.Comments;
+using Postify.Application.Posts.Comments.Delete;
 using Postify.Application.Posts.Comments.Like;
+using Postify.Application.Posts.Favorites;
 using Postify.Application.Posts.GetAll;
 using Postify.Application.Posts.GetDetails;
 using Postify.Application.Posts.Like;
@@ -101,5 +103,34 @@ namespace Postify.Api.Controllers
                 Problem
             );
         }
+
+        [HttpDelete("comment/{commentId:guid}")]
+        public async Task<IActionResult> DeletePostCommentAsync([FromRoute] Guid commentId)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = new DeletePostCommentCommand(commentId, email);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                _ => NoContent(),
+                Problem
+            );
+        }
+
+        [HttpPost("favorite/{postId:guid}")]
+        public async Task<IActionResult> FavoritePostAsync([FromRoute]Guid postId)
+        {
+            var email = AuthenticationExtensions.GetEmailByClaimTypesAsync(HttpContext.User);
+
+            var command = new FavoritePostCommand(email, postId);
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                _ => NoContent(),
+                Problem
+            );
+        }
+
     }
 }

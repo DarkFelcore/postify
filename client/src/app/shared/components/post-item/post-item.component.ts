@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {
   IComment,
+  IModifyPostCommentsCountAction,
   IPostDetails,
   IPostOverview,
   IUserPoster,
@@ -22,6 +23,7 @@ import { ICommentPostRequest } from '../../types/requests/requests';
 import { finalize, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PostDetailsComponent } from '../post-details/post-details.component';
+import { IncrementDecrementEnum } from '../../types/enums/enums';
 
 @Component({
   selector: 'app-post-item',
@@ -64,6 +66,7 @@ export class PostItemComponent implements OnInit {
       (x) => x.userName !== this.post.poster.userName
     )[0];
 
+    this.listenIncrementDecremntPostCommentsCount();
     this.checkPostedLiked();
     this.getModifiedDescription();
     this.fetchPostDetails();
@@ -179,5 +182,17 @@ export class PostItemComponent implements OnInit {
 
       this.commentInput.nativeElement.value = '';
     }
+  }
+
+  private listenIncrementDecremntPostCommentsCount(): void {
+    this.postService.modifyPostCountEmitter.subscribe({
+      next: (action: IModifyPostCommentsCountAction) => {
+        if (action.action === IncrementDecrementEnum.Increment) {
+          this.post.commentsCount += action.amount;
+        } else {
+          this.post.commentsCount -= action.amount;
+        }
+      },
+    });
   }
 }

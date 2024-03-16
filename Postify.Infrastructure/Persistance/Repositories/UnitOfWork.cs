@@ -13,6 +13,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
         public IPostLikeRepository PostLikeRepository { get; private set; }
         public ICommentRepository CommentRepository { get; private set; }
         public ICommentLikeRepository CommentLikeRepository { get; private set; }
+        public IFavoriteRepository FavoriteRepository { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -26,6 +27,7 @@ namespace Postify.Infrastructure.Persistance.Repositories
             PostLikeRepository = new PostLikeRepository(context);
             CommentRepository = new CommentRepository(context);
             CommentLikeRepository = new CommentLikeRepository(context);
+            FavoriteRepository = new FavoriteRepository(context);
         }
 
         public async Task CompleteAsync()

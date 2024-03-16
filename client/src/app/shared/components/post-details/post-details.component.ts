@@ -20,6 +20,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import moment from 'moment';
 import { ICommentPostRequest } from '../../types/requests/requests';
+import {
+  shouldRemoveMetion,
+  trimPostCommentReaction,
+} from '../../helpers/string.utils';
+import { IncrementDecrementEnum } from '../../types/enums/enums';
 
 @Component({
   selector: 'app-post-details',
@@ -52,9 +57,11 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
 
   timestamp!: string;
   isCommentInputEmpty: boolean = true;
+  reactPostCommentParentId!: string | undefined;
 
   ngOnInit(): void {
     this.handlePostModalId();
+    this.listenIncommingReactPostCommentRequests();
   }
 
   ngOnChanges(): void {
@@ -64,6 +71,20 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     const modalBackdrop = document.querySelector('.modal-backdrop');
     if (modalBackdrop) modalBackdrop.remove();
+  }
+
+  ngAfterViewInit(): void {}
+
+  listenIncommingReactPostCommentRequests(): void {
+    this.postService.reactPostCommentEmitter.subscribe({
+      next: (comment: IComment) => {
+        this.reactPostCommentParentId = comment.id;
+        this.isCommentInputEmpty = false;
+        this.commentInput.nativeElement.value = `@${comment?.user?.userName} `;
+        this.commentInput.nativeElement.focus();
+      },
+      error: (e: any) => console.log(e),
+    });
   }
 
   onLikePost(isDoubleClicked: boolean = false): void {
@@ -80,26 +101,41 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   }
 
   onCommentInputChange(e: Event): void {
-    let value = (e.target as HTMLInputElement).value;
-    value === ''
-      ? (this.isCommentInputEmpty = true)
-      : (this.isCommentInputEmpty = false);
+    let value = this.commentInput.nativeElement.value;
+    let keyCode = (e as KeyboardEvent).code;
+    if (value === '') {
+      this.reactPostCommentParentId = undefined;
+      this.isCommentInputEmpty = true;
+    } else {
+      if (shouldRemoveMetion(value, keyCode)) {
+        this.commentInput.nativeElement.value = '';
+        this.isCommentInputEmpty = true;
+        return;
+      }
+      this.isCommentInputEmpty = false;
+    }
   }
 
   onCommentPostButtonClicked(): void {
     if (!this.isCommentInputEmpty) {
       const request: ICommentPostRequest = {
-        description: this.commentInput?.nativeElement?.value,
-        parentCommentId: undefined,
+        description: trimPostCommentReaction(
+          this.commentInput?.nativeElement?.value
+        ),
+        parentCommentId: this.reactPostCommentParentId,
       };
       this.postService
         .commentPostAsync(this.postDetails?.id, request)
         .subscribe({
           next: (comment: IComment) => {
             if (comment) {
-              this.postDetails.comments.push(comment);
+              this.addNewCommentToExistingComments(comment);
               this.commentInput.nativeElement.value = '';
               this.isCommentInputEmpty = true;
+              this.postService.modifyPostCommentCount({
+                action: IncrementDecrementEnum.Increment,
+                amount: 1,
+              });
             }
           },
         });
@@ -112,5 +148,25 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
 
   private handlePostModalId(): void {
     this.postModalId = this.postModalId.replace('#', '');
+  }
+
+  private addNewCommentToExistingComments(comment: IComment): void {
+    // Root comment
+    if (comment.parentCommentId === null) {
+      this.postDetails.comments.push(comment);
+    }
+    // Child comment
+    else {
+      const parentCommentId = comment.parentCommentId as string;
+      if (this.childCommentsMap.has(parentCommentId)) {
+        const existingComments = this.childCommentsMap.get(parentCommentId)!;
+        this.childCommentsMap.set(parentCommentId, [
+          ...existingComments,
+          comment,
+        ]);
+      } else {
+        this.childCommentsMap.set(parentCommentId, [comment]);
+      }
+    }
   }
 }

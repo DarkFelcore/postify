@@ -1,3 +1,5 @@
+import { IncrementDecrementEnum } from './enums/enums';
+
 export interface IPostOverview {
   id: string;
   description: string;
@@ -36,4 +38,9 @@ export interface IUserPoster {
   id: string;
   pictureUrl: string;
   userName: string;
+}
+
+export interface IModifyPostCommentsCountAction {
+  amount: number;
+  action: IncrementDecrementEnum;
 }

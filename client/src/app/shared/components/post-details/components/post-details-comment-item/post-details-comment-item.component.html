@@ -18,11 +18,23 @@
       <div class="d-flex align-items-center gap-2">
         <small class="light-gray">{{ timeStamp }}</small>
         @if (likeCount > 1) {
-        <small class="cursor-pointer">{{ likeCount }} likes</small>
+        <small>{{ likeCount }} likes</small>
         } @else if(likeCount == 1) {
-        <small class="cursor-pointer">{{ likeCount }} like</small>
+        <small>{{ likeCount }} like</small>
+        } @if (!isChildComment) {
+        <small
+          (click)="postService.reactPostComment(comment)"
+          class="light-gray cursor-pointer"
+          >React</small
+        >
+
+        } @if (currentUser?.id === comment.user.id) {
+        <small
+          class="delete-comment-label cursor-pointer"
+          (click)="onDeleteCommentClicked(comment.id)"
+          >Delete</small
+        >
         }
-        <small class="light-gray cursor-pointer">React</small>
       </div>
     </div>
     <div
@@ -54,7 +66,10 @@
   <div class="collapse" [id]="collapsedChildCommentId">
     @for (item of childComment[1]; track $index) {
     <app-post-details-comment-item
+      [isChildComment]="true"
       [comment]="item"
+      [currentUser]="currentUser"
+      [childCommentsMap]="childCommentsMap"
     ></app-post-details-comment-item>
     }
   </div>

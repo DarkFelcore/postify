@@ -25,3 +25,8 @@ export enum DateRangeEnum {
   ThisMonth = 'This Month',
   Older = 'Older',
 }
+
+export enum IncrementDecrementEnum {
+  Increment,
+  Decrement,
+}

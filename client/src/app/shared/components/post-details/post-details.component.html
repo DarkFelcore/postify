@@ -47,7 +47,10 @@
                   class="fa-regular fa-heart cursor-pointer"
                 ></i>
                 }
-                <i class="fa-regular fa-comment comment cursor-pointer" (click)="onCommentIconClicked()"></i>
+                <i
+                  class="fa-regular fa-comment comment cursor-pointer"
+                  (click)="onCommentIconClicked()"
+                ></i>
                 <i class="fa-regular fa-paper-plane cursor-pointer"></i>
               </div>
               <div>
@@ -86,9 +89,12 @@
             class="col-md-12 comment-post-container px-3 py-2 gap-2 d-flex align-items-center justify-content-between"
           >
             <div class="col-md-10 d-flex align-items-center gap-3">
-              <i class="fa-regular fa-face-smile cursor-pointer"></i>
+              <i
+                class="fa-regular fa-face-smile cursor-pointer"
+                (click)="commentInput.nativeElement.focus()"
+              ></i>
               <input
-                (input)="onCommentInputChange($event)"
+                (keyup)="onCommentInputChange($event)"
                 #addCommentInput
                 type="text"
                 class="w-100"

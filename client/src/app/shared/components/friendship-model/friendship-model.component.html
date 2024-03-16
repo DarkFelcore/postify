@@ -2,18 +2,26 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content bg-dark">
       <div class="modal-header header">
-        <p class="modal-title text-center">{{friendShipKind}}</p>
-        <i class="fa fa-close close cursor-pointer" data-dismiss="modal" aria-label="Close"></i>
+        <p class="modal-title text-center">{{ friendShipKind }}</p>
+        <i
+          class="fa fa-close close cursor-pointer"
+          data-dismiss="modal"
+          aria-label="Close"
+        ></i>
       </div>
-      <div  class="modal-body body d-flex flex-column gap-3">
+      <div class="modal-body body d-flex flex-column gap-3">
         @for (friendship of friendships; track $index) {
-          <app-friendship-model-item [userId]="userId" [friendShip]="friendship"></app-friendship-model-item>
-        }
-        @empty {
-          <div class="d-flex flex-column justify-content-center align-items-center gap-3 no-followers-container">
-            <i class="fa-solid fa-user-plus add-user-icon"></i>
-            <h4>No {{friendShipKind}} Yet</h4>
-          </div>
+        <app-friendship-model-item
+          [userId]="userId"
+          [friendShip]="friendship"
+        ></app-friendship-model-item>
+        } @empty {
+        <div
+          class="d-flex flex-column justify-content-center align-items-center gap-3 no-followers-container"
+        >
+          <i class="fa-solid fa-user-plus add-user-icon"></i>
+          <h4>No {{ friendShipKind }} Yet</h4>
+        </div>
         }
       </div>
     </div>

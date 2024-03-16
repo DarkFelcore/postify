@@ -15,5 +15,10 @@ namespace Postify.Infrastructure.Persistance.Repositories
         {
             return await _context.Comments.AnyAsync(x => x.Id == Guid.Parse(parentCommentId));
         }
+
+        public async Task<List<Comment>> GetAllChildComments(string parentCommentId)
+        {
+            return await _context.Comments.Where(x => x.ParentCommentId == parentCommentId).ToListAsync();
+        }
     }
 }

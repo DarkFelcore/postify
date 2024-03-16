@@ -1,4 +1,5 @@
 using ErrorOr;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -19,6 +20,7 @@ namespace Postify.Api.Controllers
             {
                 return Problem();
             }
+            else { }
 
             // If there are only validation errors
             if (errors.All(error => error.Type == ErrorType.Validation))

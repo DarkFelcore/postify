@@ -15,5 +15,10 @@ namespace Postify.Infrastructure.Persistance.Repositories
         {
             return await _context.CommentLikes.FirstOrDefaultAsync(x => x.CommentId == commentId && x.UserId == userId);
         }
+
+        public async Task<List<CommentLike>?> GetAllCommentLikesByCommentIdAsync(Guid commentId)
+        {
+            return await _context.CommentLikes.Where(x => x.CommentId == commentId).ToListAsync();
+        }
     }
 }
